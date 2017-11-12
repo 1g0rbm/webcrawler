@@ -21,16 +21,16 @@
         "symfony/console": "^4.0@dev"
     },
     "require-dev": {
-      "phpunit/phpunit": "6.*.*"
+        "phpunit/phpunit": "6.*.*"
     },
     "autoload": {
-      "psr-4": {
-        "Ig0rbm\\Prettycurl\\": "src/"
-      }
+        "psr-4": {
+            "Ig0rbm\\Prettycurl\\": "src/"
+        }
     },
     "autoload-dev": {
-      "psr-4": {
-        "Ig0rbm\\Tests\\": "tests/"
-      }
+        "psr-4": {
+            "Ig0rbm\\Tests\\": "tests/"
+        }
     }
 }
