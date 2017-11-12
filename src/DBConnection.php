@@ -1,9 +1,13 @@
 <?php
 
-namespace Ig0rbm\Webcrawler\Core;
+namespace Ig0rbm\Webcrawler;
+
+use Doctrine\DBAL\DriverManager;
+use Doctrine\DBAL\Configuration;
 
 /**
- * @package Ig0rbm\Webcrawler\Core
+ * @package Ig0rbm\Webcrawler
+ * @author 1g0rbm <m1g0rb89@gmail.com>
  */
 class DBConnection
 {
@@ -20,7 +24,7 @@ class DBConnection
 
     private static function connect()
     {
-        $DBALConfig = new \Doctrine\DBAL\Configuration();
+        $DBALConfig = new Configuration();
 
         $connectionParams = [
             'dbname' => 'parser_test',
@@ -30,6 +34,6 @@ class DBConnection
             'driver' => 'pdo_mysql'
         ];
 
-        return \Doctrine\DBAL\DriverManager::getConnection($connectionParams, $DBALConfig);
+        return DriverManager::getConnection($connectionParams, $DBALConfig);
     }
 }

@@ -3,7 +3,6 @@
 namespace Ig0rbm\Webcrawler;
 
 use Symfony\Component\Console\Application as Console;
-use Doctrine\DBAL\Connection as DBAL;
 
 /**
  * @package Ig0rbm\Webcrawler
@@ -15,11 +14,6 @@ class Application
      * @var Console
      */
     private $console;
-
-    /**
-     * @var DBAL
-     */
-    private $dbal;
 
     public function __construct()
     {
