@@ -25,7 +25,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Ig0rbm\\Prettycurl\\": "src/"
+            "Ig0rbm\\Webcrawler\\": "src/"
         }
     },
     "autoload-dev": {
