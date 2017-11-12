@@ -10,5 +10,27 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "php": ">=7.1",
+        "1g0rbm/prettycurl": "dev-master",
+        "symfony/dom-crawler": "3.4.x-dev",
+        "symfony/css-selector": "^4.0@dev",
+        "symfony/filesystem": "^4.0@dev",
+        "symfony/finder": "^4.0@dev",
+        "doctrine/dbal": "^2.7@dev",
+        "symfony/console": "^4.0@dev"
+    },
+    "require-dev": {
+      "phpunit/phpunit": "6.*.*"
+    },
+    "autoload": {
+      "psr-4": {
+        "Ig0rbm\\Prettycurl\\": "src/"
+      }
+    },
+    "autoload-dev": {
+      "psr-4": {
+        "Ig0rbm\\Tests\\": "tests/"
+      }
+    }
 }
