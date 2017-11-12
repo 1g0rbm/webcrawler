@@ -3,6 +3,7 @@
 namespace Ig0rbm\Webcrawler;
 
 use Symfony\Component\Console\Application as Console;
+use Doctrine\DBAL\Connection as DBAL;
 
 /**
  * @package Ig0rbm\Webcrawler
@@ -15,19 +16,24 @@ class Application
      */
     private $console;
 
+    /**
+     * @var DBAL
+     */
+    private $dbal;
+
     public function __construct()
     {
-        $this->initialize();
-    }
-
-    public function initialize()
-    {
-        $this->console = new Console();
-        $this->console->add(new ParsingManager());
+        $this->consoleInitialize();
     }
 
     public function run()
     {
         $this->console->run();
+    }
+
+    protected function consoleInitialize()
+    {
+        $this->console = new Console();
+        $this->console->add(new ParsingManager());
     }
 }

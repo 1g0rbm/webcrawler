@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a62ceb0ef0b610a88a425c6947205884",
+    "content-hash": "21e9e012173403e36588b47390ec9862",
     "packages": [
         {
             "name": "1g0rbm/handybag",
@@ -1010,6 +1010,64 @@
                 "shim"
             ],
             "time": "2017-10-11T12:05:26+00:00"
+        },
+        {
+            "name": "symfony/yaml",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "686c7fc416b454fe4019f1a225206b133ceb4fc1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/686c7fc416b454fe4019f1a225206b133ceb4fc1",
+                "reference": "686c7fc416b454fe4019f1a225206b133ceb4fc1",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3"
+            },
+            "conflict": {
+                "symfony/console": "<3.4"
+            },
+            "require-dev": {
+                "symfony/console": "~3.4|~4.0"
+            },
+            "suggest": {
+                "symfony/console": "For validating YAML files using the lint command"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Yaml\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Yaml Component",
+            "homepage": "https://symfony.com",
+            "time": "2017-11-10T19:37:45+00:00"
         }
     ],
     "packages-dev": [
@@ -2473,7 +2531,8 @@
         "symfony/filesystem": 20,
         "symfony/finder": 20,
         "doctrine/dbal": 20,
-        "symfony/console": 20
+        "symfony/console": 20,
+        "symfony/yaml": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
