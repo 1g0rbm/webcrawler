@@ -14,11 +14,12 @@ class Application
 
     public function __construct()
     {
-        $this->console = new Console();
+        $this->initialize();
     }
 
     public function initialize()
     {
+        $this->console = new Console();
         $this->console->add(new ParsingManager());
     }
 

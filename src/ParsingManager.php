@@ -15,7 +15,7 @@ class ParsingManager extends Command
     protected function configure()
     {
         $this
-            ->setName('app:create-unit')
+            ->setName('unit:create')
             ->setDescription('Creates a new unit to parsing chain')
             ->setHelp('This command allows you to create a unit to parsing chain');
     }
