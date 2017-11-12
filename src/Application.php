@@ -10,6 +10,9 @@ use Symfony\Component\Console\Application as Console;
  */
 class Application
 {
+    /**
+     * @var Console
+     */
     private $console;
 
     public function __construct()
