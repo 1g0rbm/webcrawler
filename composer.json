@@ -1,0 +1,14 @@
+{
+    "name": "1g0rbm/webcrawler",
+    "description": "This is the web parser based on symfony components",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "1g0rbm",
+            "email": "m1g0rb89@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
