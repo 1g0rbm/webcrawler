@@ -45,6 +45,11 @@ class Application
         $dir = __DIR__;
 
         while (!file_exists($dir . '/composer.json')) {
+
+            if ($dir === '/') {
+                throw new \RuntimeException('File composer.json not found in project');
+            }
+
             $dir = dirname($dir);
         }
 
