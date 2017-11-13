@@ -3,12 +3,13 @@
 namespace Ig0rbm\Webcrawler;
 
 use Symfony\Component\Console\Application as Console;
+use Symfony\Component\Dotenv\Dotenv;
 
 /**
  * @package Ig0rbm\Webcrawler
  * @author 1g0rbm <m1g0rb89@gmail.com>
  */
-class Application
+class CrawlerKernel
 {
     /**
      * @var Console
@@ -19,9 +20,10 @@ class Application
 
     public function __construct()
     {
+        $this->projectDir = $this->getProjectDir();
         $this->consoleInitialize();
 
-        $this->projectDir = $this->getProjectDir();
+        $this->laodDotenv(new Dotenv());
     }
 
     public function run()
@@ -54,5 +56,16 @@ class Application
         }
 
         return $dir;
+    }
+
+    protected function laodDotenv(Dotenv $dotenv)
+    {
+        $dotenvPath = sprintf('%s/.env', $this->projectDir);
+
+        if (!file_exists($dotenvPath)) {
+            throw new \RuntimeException('File .env not found in project');
+        }
+
+        $dotenv->load($this->projectDir . '/.env');
     }
 }
