@@ -23,14 +23,20 @@ class CrawlerKernel
         $this->projectDir = $this->getProjectDir();
         $this->consoleInitialize();
 
-        $this->laodDotenv(new Dotenv());
+        $this->loadDotenv(new Dotenv());
     }
 
+    /**
+     * Run application
+     */
     public function run()
     {
         $this->console->run();
     }
 
+    /**
+     * Initialization default console command
+     */
     protected function consoleInitialize()
     {
         $this->console = new Console();
@@ -58,7 +64,12 @@ class CrawlerKernel
         return $dir;
     }
 
-    protected function laodDotenv(Dotenv $dotenv)
+    /**
+     * Load params from .env file from project root dir
+     *
+     * @param Dotenv $dotenv
+     */
+    protected function loadDotenv(Dotenv $dotenv)
     {
         $dotenvPath = sprintf('%s/.env', $this->projectDir);
 
