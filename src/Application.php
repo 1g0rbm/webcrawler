@@ -15,9 +15,13 @@ class Application
      */
     private $console;
 
+    private $projectDir;
+
     public function __construct()
     {
         $this->consoleInitialize();
+
+        $this->projectDir = $this->getProjectDir();
     }
 
     public function run()
@@ -29,5 +33,21 @@ class Application
     {
         $this->console = new Console();
         $this->console->add(new ParsingManager());
+    }
+
+    /**
+     * Returns the project directory in which the framework is installed
+     *
+     * @return string
+     */
+    protected function getProjectDir()
+    {
+        $dir = __DIR__;
+
+        while (!file_exists($dir . '/composer.json')) {
+            $dir = dirname($dir);
+        }
+
+        return $dir;
     }
 }
