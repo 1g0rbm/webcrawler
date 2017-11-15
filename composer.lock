@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f2d2f18f65b45e73a234ee95c0c9d922",
+    "content-hash": "94df4311214716525165cc24c81ac259",
     "packages": [
         {
             "name": "1g0rbm/handybag",
@@ -44,6 +44,42 @@
             ],
             "description": "Handy container for key/value pair",
             "time": "2017-11-08T09:12:27+00:00"
+        },
+        {
+            "name": "1g0rbm/handybox",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/1g0rbm/handybox.git",
+                "reference": "58efcd582fe24be4d7a9c22a225be25e67e6534f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/1g0rbm/handybox/zipball/58efcd582fe24be4d7a9c22a225be25e67e6534f",
+                "reference": "58efcd582fe24be4d7a9c22a225be25e67e6534f",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "6.*.*"
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "Ig0rbm\\Lazybox\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "1g0rbm",
+                    "email": "m1g0rb89@gmail.com"
+                }
+            ],
+            "description": "Small Dependency Injection Container.",
+            "time": "2017-11-15T19:31:23+00:00"
         },
         {
             "name": "1g0rbm/prettycurl",
@@ -2587,10 +2623,11 @@
         "symfony/css-selector": 20,
         "symfony/filesystem": 20,
         "symfony/finder": 20,
-        "doctrine/dbal": 20,
         "symfony/console": 20,
         "symfony/yaml": 20,
-        "symfony/dotenv": 20
+        "symfony/dotenv": 20,
+        "doctrine/dbal": 20,
+        "1g0rbm/handybox": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
