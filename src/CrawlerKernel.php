@@ -2,6 +2,8 @@
 
 namespace Ig0rbm\Webcrawler;
 
+use Ig0rbm\HandyBox\HandyBoxContainer;
+use Ig0rbm\Webcrawler\Box\DBConnectionBox;
 use Symfony\Component\Console\Application as Console;
 use Symfony\Component\Dotenv\Dotenv;
 
@@ -16,12 +18,22 @@ class CrawlerKernel
      */
     private $console;
 
+    /**
+     * @var HandyBoxContainer
+     */
+    private $container;
+
+    /**
+     * The absolute path to project directory
+     */
     private $projectDir;
 
     public function __construct()
     {
         $this->projectDir = $this->getProjectDir();
+
         $this->consoleInitialize();
+        $this->containerInitialize();
 
         $this->loadDotenv(new Dotenv());
     }
@@ -43,6 +55,12 @@ class CrawlerKernel
         $this->console->add(new ParsingManager());
     }
 
+    protected function containerInitialize()
+    {
+        $this->container = new HandyBoxContainer();
+        $this->container->register(new DBConnectionBox());
+    }
+
     /**
      * Returns the project directory in which the framework is installed
      *
@@ -53,7 +71,6 @@ class CrawlerKernel
         $dir = __DIR__;
 
         while (!file_exists($dir . '/composer.json')) {
-
             if ($dir === '/') {
                 throw new \RuntimeException('File composer.json not found in project');
             }

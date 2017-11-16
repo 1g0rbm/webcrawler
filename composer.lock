@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "94df4311214716525165cc24c81ac259",
+    "content-hash": "adc4a8ed9c9b9cb1769854be4b5ef319",
     "packages": [
         {
             "name": "1g0rbm/handybag",
@@ -51,21 +51,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/1g0rbm/handybox.git",
-                "reference": "58efcd582fe24be4d7a9c22a225be25e67e6534f"
+                "reference": "6cd69b2c9bacfd8c2cc8e770e8c8af6d5525276d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/1g0rbm/handybox/zipball/58efcd582fe24be4d7a9c22a225be25e67e6534f",
-                "reference": "58efcd582fe24be4d7a9c22a225be25e67e6534f",
+                "url": "https://api.github.com/repos/1g0rbm/handybox/zipball/6cd69b2c9bacfd8c2cc8e770e8c8af6d5525276d",
+                "reference": "6cd69b2c9bacfd8c2cc8e770e8c8af6d5525276d",
                 "shasum": ""
             },
             "require-dev": {
                 "phpunit/phpunit": "6.*.*"
             },
-            "type": "project",
+            "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Ig0rbm\\Lazybox\\": "src/"
+                    "Ig0rbm\\HandyBox\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -79,7 +79,7 @@
                 }
             ],
             "description": "Small Dependency Injection Container.",
-            "time": "2017-11-15T19:31:23+00:00"
+            "time": "2017-11-15T20:50:45+00:00"
         },
         {
             "name": "1g0rbm/prettycurl",
@@ -128,12 +128,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "1d78773a83ef6d2efd8d9ea766f1b49cbabd5d29"
+                "reference": "c3873818edef9c745cb8621489a1ab25556964ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/1d78773a83ef6d2efd8d9ea766f1b49cbabd5d29",
-                "reference": "1d78773a83ef6d2efd8d9ea766f1b49cbabd5d29",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/c3873818edef9c745cb8621489a1ab25556964ff",
+                "reference": "c3873818edef9c745cb8621489a1ab25556964ff",
                 "shasum": ""
             },
             "require": {
@@ -188,7 +188,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2017-10-26T16:48:07+00:00"
+            "time": "2017-11-13T06:22:38+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -662,12 +662,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "ff2b2c5f4dedbf573d179d9e9e6254f3b3987026"
+                "reference": "481dcfc9c0be0ed91be456ab72960ee8a07168e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/ff2b2c5f4dedbf573d179d9e9e6254f3b3987026",
-                "reference": "ff2b2c5f4dedbf573d179d9e9e6254f3b3987026",
+                "url": "https://api.github.com/repos/symfony/console/zipball/481dcfc9c0be0ed91be456ab72960ee8a07168e2",
+                "reference": "481dcfc9c0be0ed91be456ab72960ee8a07168e2",
                 "shasum": ""
             },
             "require": {
@@ -723,7 +723,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-07T14:45:01+00:00"
+            "time": "2017-11-12T16:54:20+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -784,12 +784,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "ca8a6e958e26c47267ce5e6109a77c5e78a0e6c4"
+                "reference": "92697a71cd55c5852d0f19cd80e7fb6d1eb12b88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/ca8a6e958e26c47267ce5e6109a77c5e78a0e6c4",
-                "reference": "ca8a6e958e26c47267ce5e6109a77c5e78a0e6c4",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/92697a71cd55c5852d0f19cd80e7fb6d1eb12b88",
+                "reference": "92697a71cd55c5852d0f19cd80e7fb6d1eb12b88",
                 "shasum": ""
             },
             "require": {
@@ -832,7 +832,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-10T19:37:45+00:00"
+            "time": "2017-11-12T16:47:31+00:00"
         },
         {
             "name": "symfony/dom-crawler",
@@ -953,12 +953,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "1e8e2a3a34c9d1e85ecd3e71c77587417111fb95"
+                "reference": "5518e13effc901991012d97c8d6cefb526587806"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/1e8e2a3a34c9d1e85ecd3e71c77587417111fb95",
-                "reference": "1e8e2a3a34c9d1e85ecd3e71c77587417111fb95",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/5518e13effc901991012d97c8d6cefb526587806",
+                "reference": "5518e13effc901991012d97c8d6cefb526587806",
                 "shasum": ""
             },
             "require": {
@@ -994,7 +994,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-07T14:45:01+00:00"
+            "time": "2017-11-13T10:22:30+00:00"
         },
         {
             "name": "symfony/finder",
@@ -1419,29 +1419,35 @@
         },
         {
             "name": "phpdocumentor/reflection-docblock",
-            "version": "4.1.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "2d3d238c433cf69caeb4842e97a3223a116f94b2"
+                "reference": "1119a9765990a24f4c5218a85032fb6f3a91eaff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/2d3d238c433cf69caeb4842e97a3223a116f94b2",
-                "reference": "2d3d238c433cf69caeb4842e97a3223a116f94b2",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/1119a9765990a24f4c5218a85032fb6f3a91eaff",
+                "reference": "1119a9765990a24f4c5218a85032fb6f3a91eaff",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.0",
-                "phpdocumentor/reflection-common": "^1.0@dev",
+                "phpdocumentor/reflection-common": "^1.0.0",
                 "phpdocumentor/type-resolver": "^0.4.0",
                 "webmozart/assert": "^1.0"
             },
             "require-dev": {
-                "mockery/mockery": "^0.9.4",
-                "phpunit/phpunit": "^4.4"
+                "doctrine/instantiator": "~1.0.5",
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^6.4"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "phpDocumentor\\Reflection\\": [
@@ -1460,7 +1466,7 @@
                 }
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
-            "time": "2017-08-30T18:51:59+00:00"
+            "time": "2017-11-15T19:01:54+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
@@ -1828,12 +1834,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "82ef0b2271452d23ada73920fc54fc81209f6d86"
+                "reference": "10e957fe733b28ff2c0e42e81d1e2eda46fa6691"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/82ef0b2271452d23ada73920fc54fc81209f6d86",
-                "reference": "82ef0b2271452d23ada73920fc54fc81209f6d86",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/10e957fe733b28ff2c0e42e81d1e2eda46fa6691",
+                "reference": "10e957fe733b28ff2c0e42e81d1e2eda46fa6691",
                 "shasum": ""
             },
             "require": {
@@ -1904,7 +1910,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-11-10T09:18:41+00:00"
+            "time": "2017-11-14T15:20:43+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -2619,6 +2625,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "1g0rbm/prettycurl": 20,
+        "1g0rbm/handybox": 20,
         "symfony/dom-crawler": 20,
         "symfony/css-selector": 20,
         "symfony/filesystem": 20,
@@ -2626,8 +2633,7 @@
         "symfony/console": 20,
         "symfony/yaml": 20,
         "symfony/dotenv": 20,
-        "doctrine/dbal": 20,
-        "1g0rbm/handybox": 20
+        "doctrine/dbal": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
