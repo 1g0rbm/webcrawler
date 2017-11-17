@@ -12,6 +12,8 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class ParsingManager extends Command
 {
+    private $diContainer;
+
     protected function configure()
     {
         $this

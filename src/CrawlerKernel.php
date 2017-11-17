@@ -3,7 +3,7 @@
 namespace Ig0rbm\Webcrawler;
 
 use Ig0rbm\HandyBox\HandyBoxContainer;
-use Ig0rbm\Webcrawler\Box\DBConnectionBox;
+use Ig0rbm\Webcrawler\Box\ORMDoctrineBox;
 use Symfony\Component\Console\Application as Console;
 use Symfony\Component\Dotenv\Dotenv;
 
@@ -21,7 +21,12 @@ class CrawlerKernel
     /**
      * @var HandyBoxContainer
      */
-    private $container;
+    private $diContainer;
+
+    /**
+     * @var HandyBoxContainer
+     */
+    private $parsingChain;
 
     /**
      * The absolute path to project directory
@@ -32,10 +37,10 @@ class CrawlerKernel
     {
         $this->projectDir = $this->getProjectDir();
 
+        $this->loadDotenv(new Dotenv());
+
         $this->consoleInitialize();
         $this->containerInitialize();
-
-        $this->loadDotenv(new Dotenv());
     }
 
     /**
@@ -57,8 +62,10 @@ class CrawlerKernel
 
     protected function containerInitialize()
     {
-        $this->container = new HandyBoxContainer();
-        $this->container->register(new DBConnectionBox());
+        $this->diContainer = new HandyBoxContainer();
+
+        $this->diContainer->storage()->set('path_to_entities', sprintf('%s/Entity', $this->projectDir));
+        $this->diContainer->register(new ORMDoctrineBox());
     }
 
     /**
