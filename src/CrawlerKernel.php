@@ -4,6 +4,7 @@ namespace Ig0rbm\Webcrawler;
 
 use Ig0rbm\HandyBox\HandyBoxContainer;
 use Ig0rbm\Webcrawler\Box\ORMDoctrineBox;
+use Ig0rbm\Webcrawler\Box\DoctrineConsoleRunnerBox;
 use Symfony\Component\Console\Application as Console;
 use Symfony\Component\Dotenv\Dotenv;
 
@@ -39,8 +40,8 @@ class CrawlerKernel
 
         $this->loadDotenv(new Dotenv());
 
-        $this->consoleInitialize();
         $this->containerInitialize();
+        $this->consoleInitialize();
     }
 
     /**
@@ -57,6 +58,7 @@ class CrawlerKernel
     protected function consoleInitialize()
     {
         $this->console = new Console();
+        $this->console->setHelperSet($this->diContainer->fabricate('console_runner'));
         $this->console->add(new ParsingManager());
     }
 
@@ -66,6 +68,7 @@ class CrawlerKernel
 
         $this->diContainer->storage()->set('path_to_entities', sprintf('%s/Entity', $this->projectDir));
         $this->diContainer->register(new ORMDoctrineBox());
+        $this->diContainer->register(new DoctrineConsoleRunnerBox());
     }
 
     /**
