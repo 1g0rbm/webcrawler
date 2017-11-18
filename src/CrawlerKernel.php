@@ -41,14 +41,14 @@ class CrawlerKernel
         $this->loadDotenv(new Dotenv());
 
         $this->containerInitialize();
-        $this->consoleInitialize();
     }
 
     /**
      * Run application
      */
-    public function run()
+    public function runConsole()
     {
+        $this->consoleInitialize();
         $this->console->run();
     }
 
