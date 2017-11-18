@@ -45,6 +45,8 @@ class CrawlerKernel
 
     /**
      * Run application
+     * 
+     * @return void
      */
     public function runConsole()
     {
@@ -54,6 +56,8 @@ class CrawlerKernel
 
     /**
      * Initialization default console command
+     *
+     * @return void
      */
     protected function consoleInitialize()
     {
@@ -62,6 +66,11 @@ class CrawlerKernel
         $this->console->add(new ParsingManager());
     }
 
+    /**
+     * Initialization default dependencies
+     *
+     * @return void
+     */
     protected function containerInitialize()
     {
         $this->diContainer = new HandyBoxContainer();
@@ -95,6 +104,8 @@ class CrawlerKernel
      * Load params from .env file from project root dir
      *
      * @param Dotenv $dotenv
+     * 
+     * @return void
      */
     protected function loadDotenv(Dotenv $dotenv)
     {
