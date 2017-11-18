@@ -22,7 +22,7 @@ class CrawlerKernel
     /**
      * @var HandyBoxContainer
      */
-    private $diContainer;
+    private $container;
 
     /**
      * @var HandyBoxContainer
@@ -62,7 +62,7 @@ class CrawlerKernel
     protected function consoleInitialize()
     {
         $this->console = new Console();
-        $this->console->setHelperSet($this->diContainer->fabricate('console_runner'));
+        $this->console->setHelperSet($this->container->fabricate('console_runner'));
         $this->console->add(new ParsingManager());
     }
 
@@ -73,11 +73,11 @@ class CrawlerKernel
      */
     protected function containerInitialize()
     {
-        $this->diContainer = new HandyBoxContainer();
+        $this->container = new HandyBoxContainer();
 
-        $this->diContainer->storage()->set('path_to_entities', sprintf('%s/Entity', $this->projectDir));
-        $this->diContainer->register(new ORMDoctrineBox());
-        $this->diContainer->register(new DoctrineConsoleRunnerBox());
+        $this->container->storage()->set('path_to_entities', sprintf('%s/Entity', $this->projectDir));
+        $this->container->register(new ORMDoctrineBox());
+        $this->container->register(new DoctrineConsoleRunnerBox());
     }
 
     /**
