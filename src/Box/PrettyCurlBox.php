@@ -10,6 +10,8 @@ class PrettyCurlBox implements HandyBoxInterface
 {
     public function register(HandyBoxContainer $container)
     {
-        
+        $container->factory('prettycurl', function (string $domain) {
+            return PrettyCurl::getRequestInstance($domain);
+        });
     }
 }

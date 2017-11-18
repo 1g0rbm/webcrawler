@@ -5,6 +5,7 @@ namespace Ig0rbm\Webcrawler;
 use Ig0rbm\HandyBox\HandyBoxContainer;
 use Ig0rbm\Webcrawler\Box\ORMDoctrineBox;
 use Ig0rbm\Webcrawler\Box\DoctrineConsoleRunnerBox;
+use Ig0rbm\Webcrawler\Box\PrettyCurlBox;
 use Symfony\Component\Console\Application as Console;
 use Symfony\Component\Dotenv\Dotenv;
 
@@ -45,7 +46,7 @@ class CrawlerKernel
 
     /**
      * Run application
-     * 
+     *
      * @return void
      */
     public function runConsole()
@@ -62,6 +63,7 @@ class CrawlerKernel
     protected function consoleInitialize()
     {
         $this->console = new Console();
+
         $this->console->setHelperSet($this->container->fabricate('console_runner'));
         $this->console->add(new ParsingManager());
     }
@@ -78,6 +80,7 @@ class CrawlerKernel
         $this->container->storage()->set('path_to_entities', sprintf('%s/Entity', $this->projectDir));
         $this->container->register(new ORMDoctrineBox());
         $this->container->register(new DoctrineConsoleRunnerBox());
+        $this->container->register(new PrettyCurlBox());
     }
 
     /**
@@ -104,7 +107,7 @@ class CrawlerKernel
      * Load params from .env file from project root dir
      *
      * @param Dotenv $dotenv
-     * 
+     *
      * @return void
      */
     protected function loadDotenv(Dotenv $dotenv)
