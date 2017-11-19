@@ -1,6 +1,6 @@
 <?php
 
-namespace Ig0rbm\Webcrawler;
+namespace Ig0rbm\Webcrawler\Console;
 
 use Ig0rbm\HandyBag\HandyBag;
 use Symfony\Component\Console\Command\Command;
