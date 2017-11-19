@@ -14,7 +14,7 @@
         "php": ">=7.1",
         "1g0rbm/prettycurl": "dev-master",
         "1g0rbm/handybox": "dev-master",
-        "symfony/dom-crawler": "3.4.x-dev",
+        "symfony/dom-crawler": "^4.0@dev",
         "symfony/css-selector": "^4.0@dev",
         "symfony/filesystem": "^4.0@dev",
         "symfony/finder": "^4.0@dev",

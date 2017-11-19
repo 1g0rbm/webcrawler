@@ -7,6 +7,7 @@ use Ig0rbm\HandyBag\HandyBag;
 use Ig0rbm\Webcrawler\Box\ORMDoctrineBox;
 use Ig0rbm\Webcrawler\Box\DoctrineConsoleRunnerBox;
 use Ig0rbm\Webcrawler\Box\PrettyCurlBox;
+use Ig0rbm\Webcrawler\Box\DomCrawlerBox;
 use Ig0rbm\Webcrawler\Console\ParsingManager;
 use Symfony\Component\Console\Application as Console;
 use Symfony\Component\Dotenv\Dotenv;
@@ -106,6 +107,7 @@ class CrawlerKernel
         $this->container->register(new ORMDoctrineBox());
         $this->container->register(new DoctrineConsoleRunnerBox());
         $this->container->register(new PrettyCurlBox());
+        $this->container->register(new DomCrawlerBox());
     }
 
     /**

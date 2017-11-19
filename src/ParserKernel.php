@@ -23,8 +23,9 @@ abstract class ParserKernel
         self::DONE => 'done'
     ];
 
-    private $name;
-    private $status;
+    protected $name;
+    protected $status;
+
     protected $container;
 
     public function __construct(string $name)
