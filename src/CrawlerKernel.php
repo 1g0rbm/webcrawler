@@ -50,11 +50,12 @@ class CrawlerKernel
     /**
      * @param string $name
      * @param ParserKernel $parser
-     * 
+     *
      * @return void
      */
-    public function registerParser($parser)
+    public function registerParser(ParserKernel $parser)
     {
+        $parser->setContainer($this->container);
         $this->parsers->set($parser->getName(), $parser);
     }
 
