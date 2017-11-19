@@ -6,6 +6,7 @@ use Ig0rbm\HandyBox\HandyBoxContainer;
 use Ig0rbm\Webcrawler\Box\ORMDoctrineBox;
 use Ig0rbm\Webcrawler\Box\DoctrineConsoleRunnerBox;
 use Ig0rbm\Webcrawler\Box\PrettyCurlBox;
+use Ig0rbm\HandyBag\HandyBag;
 use Symfony\Component\Console\Application as Console;
 use Symfony\Component\Dotenv\Dotenv;
 
@@ -28,7 +29,7 @@ class CrawlerKernel
     /**
      * @var HandyBoxContainer
      */
-    private $parsingChain;
+    private $parsers;
 
     /**
      * The absolute path to project directory
@@ -41,7 +42,30 @@ class CrawlerKernel
 
         $this->loadDotenv(new Dotenv());
 
+        $this->parsers = new HandyBag();
+
         $this->containerInitialize();
+    }
+
+    /**
+     * @param string $name
+     * @param [type] $parser
+     * 
+     * @return void
+     */
+    public function registerParser(string $name, $parser)
+    {
+        $this->parsers->set($name, $parser);
+    }
+
+    /**
+     * Return dic
+     *
+     * @return HandyBoxContainer
+     */
+    public function container()
+    {
+        return $this->container;
     }
 
     /**

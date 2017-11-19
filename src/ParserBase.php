@@ -7,16 +7,15 @@ use Ig0rbm\Prettycurl\Request\Request;
 
 abstract class ParserBase
 {
-    protected $request;
     protected $container;
 
-    public function __construct(HandyBoxContainer $container, Request $request)
+    public function __construct(HandyBoxContainer $container)
     {
         $this->container = $container;
         $this->request = $request;
     }
 
-    abstract public function data();
+    abstract public function settings();
 
     abstract public function process();
 
