@@ -53,9 +53,9 @@ class CrawlerKernel
      * 
      * @return void
      */
-    public function registerParser(string $name, $parser)
+    public function registerParser($parser)
     {
-        $this->parsers->set($name, $parser);
+        $this->parsers->set($parser->getName(), $parser);
     }
 
     /**
@@ -88,7 +88,6 @@ class CrawlerKernel
     {
         $this->console = new Console();
 
-        $this->console->setHelperSet($this->container->fabricate('console_runner'));
         $this->console->add(new ParsingManager());
     }
 
