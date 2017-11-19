@@ -27,9 +27,10 @@ abstract class ParserKernel
     private $status;
     protected $container;
 
-    public function __construct()
+    public function __construct(string $name)
     {
-        $this->status = NOT_READY;
+        $this->name = $name;
+        $this->status = static::$statuses[static::NOT_READY];
     }
 
     /**
@@ -55,6 +56,14 @@ abstract class ParserKernel
         }
 
         return $this->name;
+    }
+
+    /**
+     * @return int current parser statas
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 
     protected function nominate()

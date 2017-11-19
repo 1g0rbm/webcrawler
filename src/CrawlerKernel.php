@@ -3,10 +3,10 @@
 namespace Ig0rbm\Webcrawler;
 
 use Ig0rbm\HandyBox\HandyBoxContainer;
+use Ig0rbm\HandyBag\HandyBag;
 use Ig0rbm\Webcrawler\Box\ORMDoctrineBox;
 use Ig0rbm\Webcrawler\Box\DoctrineConsoleRunnerBox;
 use Ig0rbm\Webcrawler\Box\PrettyCurlBox;
-use Ig0rbm\HandyBag\HandyBag;
 use Symfony\Component\Console\Application as Console;
 use Symfony\Component\Dotenv\Dotenv;
 
@@ -27,7 +27,7 @@ class CrawlerKernel
     private $container;
 
     /**
-     * @var HandyBoxContainer
+     * @var HandyBag
      */
     private $parsers;
 
@@ -49,7 +49,7 @@ class CrawlerKernel
 
     /**
      * @param string $name
-     * @param [type] $parser
+     * @param ParserKernel $parser
      * 
      * @return void
      */
@@ -88,7 +88,7 @@ class CrawlerKernel
     {
         $this->console = new Console();
 
-        $this->console->add(new ParsingManager());
+        $this->console->add(new ParsingManager($this->parsers));
     }
 
     /**
