@@ -57,7 +57,7 @@ class CrawlerKernel
      */
     public function registerParser(ParserKernel $parser)
     {
-        $parser->setContainer($this->container);
+        $parser->prepare($this->container);
         $this->parsers->set($parser->getName(), $parser);
     }
 

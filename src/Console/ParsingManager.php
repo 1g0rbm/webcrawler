@@ -2,6 +2,7 @@
 
 namespace Ig0rbm\Webcrawler\Console;
 
+use Ig0rbm\Webcrawler\ParserKernel;
 use Ig0rbm\HandyBag\HandyBag;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -58,12 +59,10 @@ class ParsingManager extends Command
     {
         if (!$this->parsers->has($name)) {
             $stdOut[] = sprintf('<error>Parser with name "%s" is not registered.</error>', $name);
+            $stdOut[] = '';
         } else {
-            $stdOut[] = sprintf('<info>name:</info> %s', $this->parsers->get($name)->getName());
-            $stdOut[] = sprintf('<info>status:</info> %s', $this->parsers->get($name)->getStatus());
+            $stdOut = $this->getInfo($stdOut, $this->parsers->get($name));
         }
-
-        $stdOut[] = sprintf('<comment>=============</comment>');
 
         return $stdOut;
     }
@@ -74,11 +73,20 @@ class ParsingManager extends Command
      */
     protected function allStats(array $stdOut)
     {
-        foreach ($this->parsers->getAll() as $name => $value) {
-            $stdOut[] = sprintf('<info>name:</info> %s', $value->getName());
-            $stdOut[] = sprintf('<info>status:</info> %s', $value->getStatus());
-            $stdOut[] = sprintf('<comment>=============</comment>');
+        foreach ($this->parsers->getAll() as $parser) {
+            $stdOut = $this->getInfo($stdOut, $parser);
         }
+
+        return $stdOut;
+    }
+
+    protected function getInfo(array $stdOut, ParserKernel $parser)
+    {
+        $stdOut[] = sprintf('<info>name:</info> %s', $parser->getName());
+        $stdOut[] = sprintf('<info>status:</info> %s', $parser->getStatus());
+        $requestStatus = $parser->getRequest() ? 'OK' : 'NOT';
+        $stdOut[] = sprintf('<info>request:</info> %s', $requestStatus);
+        $stdOut[] = sprintf('<comment>=============</comment>');
 
         return $stdOut;
     }

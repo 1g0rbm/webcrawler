@@ -24,26 +24,32 @@ abstract class ParserKernel
     ];
 
     protected $name;
+    protected $domain;
     protected $status;
 
     protected $container;
-
-    public function __construct(string $name)
-    {
-        $this->name = $name;
-        $this->status = static::$statuses[static::NOT_READY];
-    }
+    protected $request;
 
     /**
      * Set instance of DI container
      *
      * @param HandyBoxContainer $container
-     * 
+     *
      * @return void
      */
-    public function setContainer(HandyBoxContainer $container)
+    public function prepare(HandyBoxContainer $container)
     {
+        $this->status = static::$statuses[static::NOT_READY];
         $this->container = $container;
+        $this->instantiateRequest($this->domain);
+    }
+
+    /**
+     * @return Request
+     */
+    public function getRequest()
+    {
+        return $this->request;
     }
 
     /**
@@ -65,6 +71,15 @@ abstract class ParserKernel
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * @param string $domain
+     * @return void
+     */
+    protected function instantiateRequest(string $domain)
+    {
+        $this->request = $this->container->fabricate('prettycurl', $domain);
     }
 
     protected function nominate()
