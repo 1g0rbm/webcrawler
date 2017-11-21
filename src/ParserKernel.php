@@ -4,6 +4,7 @@ namespace Ig0rbm\Webcrawler;
 
 use Ig0rbm\HandyBox\HandyBoxContainer;
 use Ig0rbm\Prettycurl\Request\Request;
+use Ig0rbm\Webcrawler\ParserChainLinkInterface;
 
 /**
  * @package Ig0rbm\Webcrawler
@@ -29,6 +30,7 @@ abstract class ParserKernel
 
     protected $container;
     protected $request;
+    protected $parsingChain;
 
     /**
      * Set instance of DI container
@@ -54,7 +56,7 @@ abstract class ParserKernel
 
     /**
      * @return string the name of parser
-     * #
+     * @throws \RuntimeException
      */
     public function getName()
     {
@@ -74,16 +76,22 @@ abstract class ParserKernel
     }
 
     /**
+     * @param ParserChainLinkInterface $chainLink
+     * 
+     * @return void
+     */
+    public function setChainLink(ParserChainLinkInterface $chainLink)
+    {
+        $this->parsingChain[] = $chainLink;
+    }
+
+    /**
      * @param string $domain
+     * 
      * @return void
      */
     protected function instantiateRequest(string $domain)
     {
         $this->request = $this->container->fabricate('prettycurl', $domain);
-    }
-
-    protected function nominate()
-    {
-        $this->name = strtolower(__CLASS__);
     }
 }
