@@ -59,7 +59,6 @@ abstract class ParserKernel
         // TODO Separate the initialization of the container from application initialization
         $this->parsingChain = $this->container->fabricate('handybag');
         $this->instantiateRequest($this->domain);
-        
     }
 
     /**
@@ -68,6 +67,11 @@ abstract class ParserKernel
     public function getRequest()
     {
         return $this->request;
+    }
+
+    public function parsingChain()
+    {
+        return $this->parsingChain;
     }
 
     /**
