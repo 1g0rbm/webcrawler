@@ -69,6 +69,9 @@ abstract class ParserKernel
         return $this->request;
     }
 
+    /**
+     * @return HandyBag
+     */
     public function parsingChain()
     {
         return $this->parsingChain;
