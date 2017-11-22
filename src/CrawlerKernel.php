@@ -5,6 +5,7 @@ namespace Ig0rbm\Webcrawler;
 use Ig0rbm\HandyBox\HandyBoxContainer;
 use Ig0rbm\HandyBag\HandyBag;
 use Ig0rbm\Webcrawler\Box\ORMDoctrineBox;
+use Ig0rbm\Webcrawler\Box\HandyBagBox;
 use Ig0rbm\Webcrawler\Box\DoctrineConsoleRunnerBox;
 use Ig0rbm\Webcrawler\Box\PrettyCurlBox;
 use Ig0rbm\Webcrawler\Box\DomCrawlerBox;
@@ -44,9 +45,11 @@ class CrawlerKernel
 
         $this->loadDotenv(new Dotenv());
 
-        $this->parsers = new HandyBag();
-
         $this->containerInitialize();
+
+        // This should be after the initialization of the container
+        // TODO Separate the initialization of the container from application initialization
+        $this->parsers = $this->container->fabricate('handybag');
     }
 
     /**
@@ -57,7 +60,7 @@ class CrawlerKernel
      */
     public function registerParser(ParserKernel $parser)
     {
-        $parser->prepare($this->container);
+        $parser->prepare($this->container, $this->container->fabricate('handybag'));
         $this->parsers->set($parser->getName(), $parser);
     }
 
@@ -108,6 +111,7 @@ class CrawlerKernel
         $this->container->register(new DoctrineConsoleRunnerBox());
         $this->container->register(new PrettyCurlBox());
         $this->container->register(new DomCrawlerBox());
+        $this->container->register(new HandyBagBox());
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Ig0rbm\Webcrawler;
 
+use Ig0rbm\HandyBag\HandyBag;
 use Ig0rbm\HandyBox\HandyBoxContainer;
 use Ig0rbm\Prettycurl\Request\Request;
 use Ig0rbm\Webcrawler\ParserChainLinkInterface;
@@ -28,8 +29,17 @@ abstract class ParserKernel
     protected $domain;
     protected $status;
 
+    /**
+     * @var HandyBox
+     */
     protected $container;
+    /**
+     * @var Request
+     */
     protected $request;
+    /**
+     * @var HandyBag
+     */
     protected $parsingChain;
 
     /**
@@ -39,11 +49,17 @@ abstract class ParserKernel
      *
      * @return void
      */
-    public function prepare(HandyBoxContainer $container)
+    public function prepare(HandyBoxContainer $container, HandyBag $parsingChain)
     {
         $this->status = static::$statuses[static::NOT_READY];
+
         $this->container = $container;
+
+        // This should be after the initialization of the container
+        // TODO Separate the initialization of the container from application initialization
+        $this->parsingChain = $this->container->fabricate('handybag');
         $this->instantiateRequest($this->domain);
+        
     }
 
     /**
@@ -73,16 +89,6 @@ abstract class ParserKernel
     public function getStatus()
     {
         return $this->status;
-    }
-
-    /**
-     * @param ParserChainLinkInterface $chainLink
-     * 
-     * @return void
-     */
-    public function setChainLink(ParserChainLinkInterface $chainLink)
-    {
-        $this->parsingChain[] = $chainLink;
     }
 
     /**
