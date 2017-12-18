@@ -17,12 +17,14 @@ abstract class ParserKernel
     const READY = 1;
     const PARSING = 2;
     const DONE = 3;
+    const ERROR = 4;
 
-    public static $statuses = [
-        self::NOT_READY => 'not.ready',
+    public static $statusText = [
+        self::NOT_READY => 'not ready',
         self::READY => 'ready',
-        self::PARSING => 'parsing',
-        self::DONE => 'done'
+        self::PARSING => 'in progress',
+        self::DONE => 'done',
+        self::ERROR => 'error'
     ];
 
     protected $name;
