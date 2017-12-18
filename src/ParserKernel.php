@@ -53,7 +53,7 @@ abstract class ParserKernel
      */
     public function prepare(HandyBoxContainer $container, HandyBag $parsingChain)
     {
-        $this->status = static::$statuses[static::NOT_READY];
+        $this->status = static::$statusText[static::NOT_READY];
 
         $this->container = $container;
 
