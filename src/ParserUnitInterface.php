@@ -8,7 +8,7 @@ namespace Ig0rbm\Webcrawler;
  * @package Ig0rbm\Webcrawler
  * @author 1g0rbm <m1g0rb89@gmail.com>
  */
-interface ParserChainLinkInterface
+interface ParserUnitInterface
 {
     public function __construct(Request $request);
 
