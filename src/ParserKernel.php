@@ -92,10 +92,13 @@ abstract class ParserKernel
 
     /**
      * @param ParsingUnitInterface $parsingUnit
+     * @return ParserKernel
      */
     public function pushUnit(ParsingUnitInterface $parsingUnit)
     {
         $this->parsingChain[] = $parsingUnit;
+
+        return $this;
     }
 
     /**

@@ -56,12 +56,14 @@ class CrawlerKernel
      * @param string $name
      * @param ParserKernel $parser
      *
-     * @return void
+     * @return CrawlerKernel
      */
     public function registerParser(ParserKernel $parser)
     {
         $parser->prepare($this->container, $this->container->fabricate('handybag'));
         $this->parsers->set($parser->getName(), $parser);
+
+        return $this;
     }
 
     /**
