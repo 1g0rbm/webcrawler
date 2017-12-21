@@ -5,7 +5,7 @@ namespace Ig0rbm\Webcrawler;
 use Ig0rbm\HandyBag\HandyBag;
 use Ig0rbm\HandyBox\HandyBoxContainer;
 use Ig0rbm\Prettycurl\Request\Request;
-use Ig0rbm\Webcrawler\ParsingUnitInterface;
+use Ig0rbm\Webcrawler\BaseParsingUnit;
 
 /**
  * @package Ig0rbm\Webcrawler
@@ -90,11 +90,16 @@ abstract class ParserKernel
         return $this->status;
     }
 
+    public function getChainLength()
+    {
+        return count($this->parsingChain);
+    }
+
     /**
      * @param ParsingUnitInterface $parsingUnit
      * @return ParserKernel
      */
-    public function pushUnit(ParsingUnitInterface $parsingUnit)
+    public function pushUnit(BaseParsingUnit $parsingUnit)
     {
         $this->parsingChain[] = $parsingUnit;
 
