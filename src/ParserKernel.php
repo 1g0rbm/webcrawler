@@ -5,7 +5,7 @@ namespace Ig0rbm\Webcrawler;
 use Ig0rbm\HandyBag\HandyBag;
 use Ig0rbm\HandyBox\HandyBoxContainer;
 use Ig0rbm\Prettycurl\Request\Request;
-use Ig0rbm\Webcrawler\ParserChainLinkInterface;
+use Ig0rbm\Webcrawler\ParsingUnitInterface;
 
 /**
  * @package Ig0rbm\Webcrawler
@@ -35,14 +35,16 @@ abstract class ParserKernel
      * @var HandyBox
      */
     protected $container;
+    
     /**
      * @var Request
      */
     protected $request;
+    
     /**
-     * @var HandyBag
+     * @var array
      */
-    protected $parsingChain;
+    protected $parsingChain = [];
 
     /**
      * Set instance of DI container
@@ -51,14 +53,11 @@ abstract class ParserKernel
      *
      * @return void
      */
-    public function prepare(HandyBoxContainer $container, HandyBag $parsingChain)
+    public function prepare(HandyBoxContainer $container)
     {
         $this->status = static::$statusText[static::NOT_READY];
         $this->container = $container;
 
-        // This should be after the initialization of the container
-        // TODO Separate the initialization of the container from application initialization
-        $this->parsingChain = $this->container->fabricate('handybag');
         $this->instantiateRequest($this->domain);
     }
 
@@ -68,14 +67,6 @@ abstract class ParserKernel
     public function getRequest()
     {
         return $this->request;
-    }
-
-    /**
-     * @return HandyBag
-     */
-    public function parsingChain()
-    {
-        return $this->parsingChain;
     }
 
     /**
@@ -97,6 +88,14 @@ abstract class ParserKernel
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * @param ParsingUnitInterface $parsingUnit
+     */
+    public function pushUnit(ParsingUnitInterface $parsingUnit)
+    {
+        $this->parsingChain[] = $parsingUnit;
     }
 
     /**
