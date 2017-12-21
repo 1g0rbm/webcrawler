@@ -43,7 +43,8 @@ class ParsingManager extends Command
     {
         $stdOut = [
             '<comment>ParserManager</comment>',
-            '<comment>=============</comment>'
+            '<comment>=============</comment>',
+            ''
         ];
 
         if ($input->getArgument('parsername')) {
@@ -83,10 +84,10 @@ class ParsingManager extends Command
     protected function getInfo(array $stdOut, ParserKernel $parser)
     {
         $stdOut[] = sprintf('<info>name:</info> %s', $parser->getName());
-        $stdOut[] = sprintf('<info>status:</info> %s', $parser->getStatus());
         $stdOut[] = sprintf('<info>chain length:</info> %s', $parser->getChainLength());
-        $requestStatus = $parser->getRequest() ? 'OK' : 'NOT';
-        $stdOut[] = sprintf('<info>request:</info> %s', $requestStatus);
+        $stdOut[] = sprintf('<info>request:</info> %s', $parser->getRequest() ? 'OK' : 'NOT');
+        $stdOut[] = '';
+        $stdOut[] = sprintf('<info>status:</info> %s', $parser->getStatus());
         $stdOut[] = sprintf('<comment>=============</comment>');
 
         return $stdOut;

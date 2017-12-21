@@ -55,10 +55,10 @@ abstract class ParserKernel
      */
     public function prepare(HandyBoxContainer $container)
     {
-        $this->status = static::$statusText[static::NOT_READY];
         $this->container = $container;
-
         $this->instantiateRequest($this->domain);
+
+        $this->setStatus();
     }
 
     /**
@@ -106,12 +106,31 @@ abstract class ParserKernel
         return $this;
     }
 
+    private function setStatus()
+    {
+        $ready = true;
+
+        if (!$this->getName()) {
+            $ready = false;
+        }
+
+        if (!$this->getRequest()) {
+            $ready = false;
+        }
+
+        if ($this->getChainLength() <= 0) {
+            $ready = false;
+        }
+
+        $this->status = $ready ? static::$statusText[static::READY] : static::$statusText[static::NOT_READY];
+    }
+
     /**
      * @param string $domain
      * 
      * @return void
      */
-    protected function instantiateRequest(string $domain)
+    private function instantiateRequest(string $domain)
     {
         $this->request = $this->container->fabricate('prettycurl', $domain);
     }
