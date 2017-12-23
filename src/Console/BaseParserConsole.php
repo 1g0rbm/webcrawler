@@ -32,4 +32,37 @@ class BaseParserConsole extends Command
 
         parent::__construct();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function setName($name)
+    {
+        parent::setName($name);
+
+        $this
+            ->pushToStdOut(sprintf('<comment>%s</comment>', $name))
+            ->pushToStdOut('<comment>####################</comment>')
+            ->pushToStdOut('');
+
+        return $this;
+    }
+
+    /**
+     * @param string|array $stdOut
+     * @return $this
+     */
+    protected function pushToStdOut($stdOut)
+    {
+        if (is_array($stdOut)) {
+            $this->stdOut = array_merge($this->stdOut, $stdOut);
+        } elseif (is_string($stdOut)) {
+            $this->stdOut[] = $stdOut;
+        } else {
+            $message = 'Method pushToStdOut only accepted string or array. Input was ' . $stdOut . '.';
+            throw new InvalidArgumentException($message);
+        }
+
+        return $this;
+    }
 }
