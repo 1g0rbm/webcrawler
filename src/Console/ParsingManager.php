@@ -3,8 +3,6 @@
 namespace Ig0rbm\Webcrawler\Console;
 
 use Ig0rbm\Webcrawler\ParserKernel;
-use Ig0rbm\HandyBag\HandyBag;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -14,22 +12,8 @@ use Symfony\Component\Console\Output\OutputArgument;
  * @package Ig0rbm\Webcrawler
  * @author 1g0rbm <m1g0rb89@gmail.com>
  */
-class ParsingManager extends Command
+class ParsingManager extends BaseParserConsole
 {
-    /**
-     * Collection of ParserKernel inheritor
-     *
-     * @var HandyBag
-     */
-    private $parsers;
-
-    public function __construct(HandyBag $parsers)
-    {
-        $this->parsers = $parsers;
-
-        parent::__construct();
-    }
-
     protected function configure()
     {
         $this
