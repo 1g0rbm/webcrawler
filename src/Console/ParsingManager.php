@@ -87,7 +87,7 @@ class ParsingManager extends Command
         $stdOut[] = sprintf('<info>chain length:</info> %s', $parser->getChainLength());
         $stdOut[] = sprintf('<info>request:</info> %s', $parser->getRequest() ? 'OK' : 'NOT');
         $stdOut[] = '';
-        $stdOut[] = sprintf('<info>status:</info> %s', $parser->getStatus());
+        $stdOut[] = sprintf('<info>status:</info> %s', $parser->getStatusText());
         $stdOut[] = sprintf('<comment>=============</comment>');
 
         return $stdOut;

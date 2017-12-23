@@ -6,6 +6,7 @@ use Ig0rbm\HandyBag\HandyBag;
 use Ig0rbm\HandyBox\HandyBoxContainer;
 use Ig0rbm\Prettycurl\Request\Request;
 use Ig0rbm\Webcrawler\BaseParsingUnit;
+use Ig0rbm\Webcrawler\Exception\PropertyNotDefinedException;
 
 /**
  * @package Ig0rbm\Webcrawler
@@ -71,12 +72,12 @@ abstract class ParserKernel
 
     /**
      * @return string the name of parser
-     * @throws \RuntimeException
+     * @throws PropertyNotDefineException
      */
     public function getName()
     {
         if (null === $this->name) {
-            throw new \RuntimeException('Can not find the name of the parser');
+            throw new PropertyNotDefinedException('name', self::class);
         }
 
         return $this->name;
@@ -88,6 +89,18 @@ abstract class ParserKernel
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatusText()
+    {
+        if (null === $this->status) {
+            PropertyNotDefinedException('status', self::class);
+        }
+
+        return static::$statusText[$this->status];
     }
 
     public function getChainLength()
@@ -122,7 +135,7 @@ abstract class ParserKernel
             $ready = false;
         }
 
-        $this->status = $ready ? static::$statusText[static::READY] : static::$statusText[static::NOT_READY];
+        $this->status = $ready ? static::READY : static::NOT_READY;
     }
 
     /**
