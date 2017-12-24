@@ -41,9 +41,24 @@ class BaseParserConsole extends Command
         parent::setName($name);
 
         $this
-            ->pushToStdOut(sprintf('<comment>%s</comment>', $name))
-            ->pushToStdOut('<comment>####################</comment>')
+            ->pushToStdOut(sprintf('<fg=black;bg=green>*%s*</>', $name))
             ->pushToStdOut('');
+
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     * 
+     * @return $this;
+     */
+    protected function setCurrentParserByName(string $name)
+    {
+        if (!$this->parsers->has($name)) {
+            return false;
+        }
+
+        $this->currentParser = $this->parsers->get($name);
 
         return $this;
     }

@@ -25,19 +25,15 @@ class ParsingManager extends BaseParserConsole
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $stdOut = [
-            '<comment>ParserManager</comment>',
-            '<comment>=============</comment>',
-            ''
-        ];
-
         if ($input->getArgument('parsername')) {
-            $stdOut = $this->statsByName($input->getArgument('parsername'), $stdOut);
+            $this
+                ->setCurrentParserByName($input->getArgument('parsername'))
+                ->pushInfo();
         } else {
-            $stdOut = $this->allStats($stdOut);
+            $this->pushToStdOut($this->allStats($stdOut));
         }
 
-        $output->writeln($stdOut);
+        $output->writeln($this->stdOut);
     }
 
     protected function statsByName(string $name, array $stdOut)
@@ -65,15 +61,18 @@ class ParsingManager extends BaseParserConsole
         return $stdOut;
     }
 
-    protected function getInfo(array $stdOut, ParserKernel $parser)
+    protected function pushInfo(ParserKernel $parser = null)
     {
-        $stdOut[] = sprintf('<info>name:</info> %s', $parser->getName());
-        $stdOut[] = sprintf('<info>chain length:</info> %s', $parser->getChainLength());
-        $stdOut[] = sprintf('<info>request:</info> %s', $parser->getRequest() ? 'OK' : 'NOT');
-        $stdOut[] = '';
-        $stdOut[] = sprintf('<info>status:</info> %s', $parser->getStatusText());
-        $stdOut[] = sprintf('<comment>=============</comment>');
+        $parser = $parser ?: $this->currentParser;
 
-        return $stdOut;
+        $this
+            ->pushToStdOut(sprintf('<info>name:</info> %s', $parser->getName()))
+            ->pushToStdOut(sprintf('<info>chain length:</info> %s', $parser->getChainLength()))
+            ->pushToStdOut(sprintf('<info>request:</info> %s', $parser->getRequest() ? 'OK' : 'NOT'))
+            ->pushToStdOut('')
+            ->pushToStdOut(sprintf('<info>status:</info> %s', $parser->getStatusText()))
+            ->pushToStdOut('');
+
+        return $this;
     }
 }
