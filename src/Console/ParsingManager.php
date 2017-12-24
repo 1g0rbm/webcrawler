@@ -30,35 +30,13 @@ class ParsingManager extends BaseParserConsole
                 ->setCurrentParserByName($input->getArgument('parsername'))
                 ->pushInfo();
         } else {
-            $this->pushToStdOut($this->allStats($stdOut));
+            $manager = $this;
+            $this->parsers->walk(function($parser) use($manager) {
+                $manager->pushInfo($parser);
+            });
         }
 
         $output->writeln($this->stdOut);
-    }
-
-    protected function statsByName(string $name, array $stdOut)
-    {
-        if (!$this->parsers->has($name)) {
-            $stdOut[] = sprintf('<error>Parser with name "%s" is not registered.</error>', $name);
-            $stdOut[] = '';
-        } else {
-            $stdOut = $this->getInfo($stdOut, $this->parsers->get($name));
-        }
-
-        return $stdOut;
-    }
-
-    /**
-     * @param array $stdOut
-     * @return array
-     */
-    protected function allStats(array $stdOut)
-    {
-        foreach ($this->parsers->getAll() as $parser) {
-            $stdOut = $this->getInfo($stdOut, $parser);
-        }
-
-        return $stdOut;
     }
 
     protected function pushInfo(ParserKernel $parser = null)
