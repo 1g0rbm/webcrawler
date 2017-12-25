@@ -9,7 +9,8 @@ use Ig0rbm\Webcrawler\Box\HandyBagBox;
 use Ig0rbm\Webcrawler\Box\DoctrineConsoleRunnerBox;
 use Ig0rbm\Webcrawler\Box\PrettyCurlBox;
 use Ig0rbm\Webcrawler\Box\DomCrawlerBox;
-use Ig0rbm\Webcrawler\Console\ParsingManager;
+use Ig0rbm\Webcrawler\Console\ParsersInfo;
+use Ig0rbm\Webcrawler\Console\ParsingRun;
 use Symfony\Component\Console\Application as Console;
 use Symfony\Component\Dotenv\Dotenv;
 
@@ -96,7 +97,8 @@ class CrawlerKernel
     {
         $this->console = new Console();
 
-        $this->console->add(new ParsingManager($this->parsers));
+        $this->console->add(new ParsersInfo($this->parsers));
+        $this->console->add(new ParsingRun($this->parsers));
     }
 
     /**

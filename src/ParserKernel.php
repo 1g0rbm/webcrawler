@@ -119,6 +119,13 @@ abstract class ParserKernel
         return $this;
     }
 
+    public function run()
+    {
+        foreach($this->parsingChain as $key => $unit) {
+
+        }
+    }
+
     private function setStatus()
     {
         $ready = true;
