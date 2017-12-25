@@ -2,8 +2,9 @@
 
 namespace Ig0rbm\Webcrawler\Console;
 
-use Symfony\Component\Console\Command\Command;
 use Ig0rbm\HandyBag\HandyBag;
+use Ig0rbm\Webcrawler\Exception\NotFoundException;
+use Symfony\Component\Console\Command\Command;
 
 /**
  * @package Ig0rbm\Webcrawler
@@ -55,7 +56,7 @@ class BaseParserConsole extends Command
     protected function setCurrentParserByName(string $name)
     {
         if (!$this->parsers->has($name)) {
-            return false;
+            throw new NotFoundException(sprintf('Parser with name "%s" is not found.', $name));
         }
 
         $this->currentParser = $this->parsers->get($name);

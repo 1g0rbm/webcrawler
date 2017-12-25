@@ -3,6 +3,7 @@
 namespace Ig0rbm\Webcrawler\Console;
 
 use Ig0rbm\Webcrawler\ParserKernel;
+use Ig0rbm\Webcrawler\Exception\NotFoundException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -31,7 +32,7 @@ class ParsingManager extends BaseParserConsole
                 ->pushInfo();
         } else {
             $manager = $this;
-            $this->parsers->walk(function($parser) use($manager) {
+            $this->parsers->walk(function($key, $parser) use($manager) {
                 $manager->pushInfo($parser);
             });
         }
@@ -42,6 +43,10 @@ class ParsingManager extends BaseParserConsole
     protected function pushInfo(ParserKernel $parser = null)
     {
         $parser = $parser ?: $this->currentParser;
+
+        if (!$parser) {
+            throw new InvalidArgumentException ('Parser instance is not passed.');
+        }
 
         $this
             ->pushToStdOut(sprintf('<info>name:</info> %s', $parser->getName()))
