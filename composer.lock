@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/1g0rbm/event-manager.git",
-                "reference": "bb36f266dff57bce3b2c319a732fe53134130c53"
+                "reference": "88d38bd4559b30f740bc41f34a6e433136160759"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/1g0rbm/event-manager/zipball/bb36f266dff57bce3b2c319a732fe53134130c53",
-                "reference": "bb36f266dff57bce3b2c319a732fe53134130c53",
+                "url": "https://api.github.com/repos/1g0rbm/event-manager/zipball/88d38bd4559b30f740bc41f34a6e433136160759",
+                "reference": "88d38bd4559b30f740bc41f34a6e433136160759",
                 "shasum": ""
             },
             "require": {
@@ -44,7 +44,7 @@
                 }
             ],
             "description": "Simple event manager based on \"Observer\" pattern.",
-            "time": "2017-12-26T20:09:32+00:00"
+            "time": "2017-12-27T19:55:43+00:00"
         },
         {
             "name": "1g0rbm/handybag",
