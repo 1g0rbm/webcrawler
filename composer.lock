@@ -4,8 +4,48 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a51515dc72edcba8f4cac7528ba9fdfd",
+    "content-hash": "bc79825008fe23c2f99e5ddab5447a20",
     "packages": [
+        {
+            "name": "1g0rbm/event-manager",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/1g0rbm/event-manager.git",
+                "reference": "bb36f266dff57bce3b2c319a732fe53134130c53"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/1g0rbm/event-manager/zipball/bb36f266dff57bce3b2c319a732fe53134130c53",
+                "reference": "bb36f266dff57bce3b2c319a732fe53134130c53",
+                "shasum": ""
+            },
+            "require": {
+                "1g0rbm/handybag": "dev-master",
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "6.*.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ig0rbm\\EventManager\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "1g0rbm",
+                    "email": "m1g0rb89@gmail.com"
+                }
+            ],
+            "description": "Simple event manager based on \"Observer\" pattern.",
+            "time": "2017-12-26T20:09:32+00:00"
+        },
         {
             "name": "1g0rbm/handybag",
             "version": "dev-master",
@@ -422,12 +462,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "0c74527d78ec708dced033746702f77af124d809"
+                "reference": "fcc00deed202e92c62953eb0d833dd203c42d429"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/0c74527d78ec708dced033746702f77af124d809",
-                "reference": "0c74527d78ec708dced033746702f77af124d809",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/fcc00deed202e92c62953eb0d833dd203c42d429",
+                "reference": "fcc00deed202e92c62953eb0d833dd203c42d429",
                 "shasum": ""
             },
             "require": {
@@ -490,7 +530,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2017-12-24T17:33:57+00:00"
+            "time": "2017-12-26T20:53:55+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -1819,12 +1859,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "218d86c432ccb197b9bd6ca29d57a08acba6908a"
+                "reference": "0d4a39498c4c2350e7a6eaa0068b1eada55f9bf8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/218d86c432ccb197b9bd6ca29d57a08acba6908a",
-                "reference": "218d86c432ccb197b9bd6ca29d57a08acba6908a",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/0d4a39498c4c2350e7a6eaa0068b1eada55f9bf8",
+                "reference": "0d4a39498c4c2350e7a6eaa0068b1eada55f9bf8",
                 "shasum": ""
             },
             "require": {
@@ -1895,7 +1935,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-12-19T06:28:18+00:00"
+            "time": "2017-12-27T15:21:28+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -2617,7 +2657,8 @@
         "symfony/finder": 20,
         "symfony/console": 20,
         "symfony/yaml": 20,
-        "symfony/dotenv": 20
+        "symfony/dotenv": 20,
+        "1g0rbm/event-manager": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
