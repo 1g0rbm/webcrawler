@@ -60,8 +60,9 @@ class CrawlerKernel
     public function __construct()
     {
         $this->projectDir = $this->getProjectDir();
-
         $this->loadDotenv(new Dotenv());
+
+        $this->parsersDir = $this->getUserParsersDir();
 
         $this->containerInitialize();
 
@@ -154,6 +155,28 @@ class CrawlerKernel
         }
 
         return $dir;
+    }
+
+    /**
+     * Return the user parsers directory
+     *
+     * @return string|false
+     */
+    protected function getUserParsersDir()
+    {
+        $path = getenv('PARSERS_DIR');
+
+        if ($path && is_dir($path)) {
+            return $path;
+        }
+
+        $path = sprintf('%s/%s', $this->projectDir, 'Parsers');
+
+        if (is_dir($path)) {
+            return $path;
+        }
+
+        return false;
     }
 
     /**
