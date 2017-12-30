@@ -38,8 +38,24 @@ class CrawlerKernel
 
     /**
      * The absolute path to project directory
+     * 
+     * @var string
      */
     private $projectDir;
+
+    /**
+     * The absolute path to directory with users parsers files
+     *
+     * @var string
+     */
+    private $parsersDir;
+
+    /**
+     * The absolute path to directory with config for users parsers
+     *
+     * @var string
+     */
+    private $parsersConfigDir;
 
     public function __construct()
     {
