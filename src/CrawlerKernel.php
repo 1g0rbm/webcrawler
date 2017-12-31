@@ -59,11 +59,6 @@ class CrawlerKernel
 
     public function __construct()
     {
-        $this->projectDir = $this->getProjectDir();
-        $this->loadDotenv(new Dotenv());
-
-        $this->parsersDir = $this->getUserParsersDir();
-
         $this->containerInitialize();
 
         // This should be after the initialization of the container
