@@ -24,38 +24,38 @@ class CrawlerKernel
     /**
      * @var Console
      */
-    private $console;
+    protected $console;
 
     /**
      * @var HandyBoxContainer
      */
-    private $container;
+    protected $container;
 
     /**
      * @var HandyBag
      */
-    private $parsers;
+    protected $parsers;
 
     /**
      * The absolute path to project directory
      * 
      * @var string
      */
-    private $projectDir;
+    protected $projectDir;
 
     /**
      * The absolute path to directory with users parsers files
      *
      * @var string
      */
-    private $parsersDir;
+    protected $parsersDir;
 
     /**
      * The absolute path to directory with config for users parsers
      *
      * @var string
      */
-    private $parsersConfigDir;
+    protected $parsersConfigDir;
 
     public function __construct()
     {
