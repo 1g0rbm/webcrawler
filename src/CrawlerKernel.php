@@ -139,7 +139,13 @@ class CrawlerKernel
      */
     protected function getProjectDir()
     {
-        $dir = __DIR__;
+        if (null !== $this->projectDir) {
+            return $this->projectDir;
+        }
+
+        $r = new \ReflectionObject($this);
+
+        $dir = dirname($r->getFileName());
 
         while (!file_exists($dir . '/composer.json')) {
             if ($dir === '/') {
@@ -183,12 +189,12 @@ class CrawlerKernel
      */
     protected function loadDotenv(Dotenv $dotenv)
     {
-        $dotenvPath = sprintf('%s/.env', $this->projectDir);
+        $path = sprintf('%s/.env', $this->getProjectDir());
 
-        if (!file_exists($dotenvPath)) {
+        if (!file_exists($path)) {
             throw new \RuntimeException('File .env not found in project');
         }
 
-        $dotenv->load($this->projectDir . '/.env');
+        $dotenv->load($path);
     }
 }
