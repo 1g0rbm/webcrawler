@@ -10,10 +10,12 @@ use Ig0rbm\Webcrawler\Box\DoctrineConsoleRunnerBox;
 use Ig0rbm\Webcrawler\Box\PrettyCurlBox;
 use Ig0rbm\Webcrawler\Box\DomCrawlerBox;
 use Ig0rbm\Webcrawler\Box\EventManagerBox;
+use Ig0rbm\Webcrawler\Box\ParserFactoryBox;
 use Ig0rbm\Webcrawler\Console\ParsersInfo;
 use Ig0rbm\Webcrawler\Console\ParsingRun;
 use Symfony\Component\Console\Application as Console;
 use Symfony\Component\Dotenv\Dotenv;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * @package Ig0rbm\Webcrawler
@@ -55,7 +57,7 @@ class CrawlerKernel
      *
      * @var string
      */
-    protected $parsersConfigDir;
+    protected $parsersConfigPath;
 
     public function __construct()
     {
@@ -66,23 +68,16 @@ class CrawlerKernel
         $this->parsers = $this->container->fabricate('handybag');
     }
 
-    /**
-     * @param string $name
-     * @param ParserKernel $parser
-     *
-     * @return CrawlerKernel
-     */
-    public function registerParser(ParserKernel $parser)
-    {
-        $parser->prepare($this->container, $this->container->fabricate('handybag'));
-        $this->parsers->set($parser->getName(), $parser);
-
-        return $this;
-    }
-
     public function loadParsers()
     {
-        
+        $config = Yaml::parseFile($this->getParsersConfigPath());
+
+        foreach ($config as $name => $settings) {
+            $fields = $settings['fields'] ?? [];
+            $parser = $this->container->fabricate('parser.factory', $name, $fields);
+
+            $this->parsers->set($parser->getName(), $parser);
+        }
     }
 
     /**
@@ -135,6 +130,7 @@ class CrawlerKernel
         $this->container->register(new DomCrawlerBox());
         $this->container->register(new HandyBagBox());
         $this->container->register(new EventManagerBox());
+        $this->container->register(new ParserFactoryBox());
     }
 
     /**

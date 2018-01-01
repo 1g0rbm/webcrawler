@@ -48,18 +48,18 @@ abstract class ParserKernel
     protected $parsingChain = [];
 
     /**
-     * Set instance of DI container
-     *
      * @param HandyBoxContainer $container
-     *
-     * @return void
+     * @param array $fields
      */
-    public function prepare(HandyBoxContainer $container)
+    public function __construct(HandyBoxContainer $container, array $fields)
     {
         $this->container = $container;
-        $this->instantiateRequest($this->domain);
 
+        $this->domain = $fields['domain'] ?? null;
+        $this->name = $fields['name'] ?? null;
         $this->setStatus();
+
+        $this->request = $this->container->fabricate('prettycurl', $this->domain);
     }
 
     /**
@@ -143,15 +143,5 @@ abstract class ParserKernel
         }
 
         $this->status = $ready ? static::READY : static::NOT_READY;
-    }
-
-    /**
-     * @param string $domain
-     * 
-     * @return void
-     */
-    private function instantiateRequest(string $domain)
-    {
-        $this->request = $this->container->fabricate('prettycurl', $domain);
     }
 }

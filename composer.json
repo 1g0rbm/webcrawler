@@ -19,7 +19,7 @@
         "symfony/filesystem": "^4.0@dev",
         "symfony/finder": "^4.0@dev",
         "symfony/console": "^4.0@dev",
-        "symfony/yaml": "^4.0@dev",
+        "symfony/yaml": "^4.1@dev",
         "symfony/dotenv": "^4.0@dev",
         "doctrine/orm": "*",
         "1g0rbm/event-manager": "dev-master"
