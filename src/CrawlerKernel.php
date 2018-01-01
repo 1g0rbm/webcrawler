@@ -80,6 +80,11 @@ class CrawlerKernel
         return $this;
     }
 
+    public function loadParsers()
+    {
+        
+    }
+
     /**
      * Return dic
      *
@@ -136,6 +141,7 @@ class CrawlerKernel
      * Returns the project directory in which the framework is installed
      *
      * @return string
+     * @throws \RuntimeException
      */
     protected function getProjectDir()
     {
@@ -155,7 +161,28 @@ class CrawlerKernel
             $dir = dirname($dir);
         }
 
-        return $dir;
+        return $this->projectDir = $dir;
+    }
+
+    /**
+     * Returns the path to parsers config file
+     *
+     * @return string
+     * @throws \RuntimeException
+     */
+    protected function getParsersConfigPath()
+    {
+        if (null !== $this->parsersConfigPath) {
+            return $this->parsersConfigPath;
+        }
+
+        $path = sprintf('%s/config/parsers.yml', $this->getProjectDir());
+
+        if (!file_exists($path)) {
+            throw new \RuntimeException(sprintf('Configuration file "%s" is not found&'));
+        }
+
+        return $this->parsersConfigPath = $path;
     }
 
     /**
