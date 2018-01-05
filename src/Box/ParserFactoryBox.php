@@ -4,19 +4,14 @@ namespace Ig0rbm\Webcrawler\Box;
 
 use Ig0rbm\HandyBox\HandyBoxInterface;
 use Ig0rbm\HandyBox\HandyBoxContainer;
+use Ig0rbm\Webcrawler\ParserKernel;
 
 class ParserFactoryBox implements HandyBoxInterface
 {
     public function register(HandyBoxContainer $container)
     {
-        $container->factory('parser.factory', function (string $name, array $fields) use ($container) {
-            $name = sprintf('App\Parser\%s\%sParserKernel', $name, $name);
-
-            if (false === class_exists($name)) {
-                throw new \RuntimeException(sprintf('Class "%s" was not found.', $name));
-            }
-
-            return new $name($container, $fields);
+        $container->factory('parser.factory', function (array $fields) use ($container) {
+            return new ParserKernel($container, $fields);
         });
     }
 }

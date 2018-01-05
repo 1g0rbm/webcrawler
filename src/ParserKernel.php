@@ -12,7 +12,7 @@ use Ig0rbm\Webcrawler\Exception\PropertyNotDefinedException;
  * @package Ig0rbm\Webcrawler
  * @author 1g0rbm <m1g0rb89@gmail.com>
  */
-abstract class ParserKernel
+class ParserKernel
 {
     const NOT_READY = 0;
     const READY = 1;

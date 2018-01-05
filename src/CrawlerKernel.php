@@ -74,7 +74,7 @@ class CrawlerKernel
 
         foreach ($config as $name => $settings) {
             $fields = $settings['fields'] ?? [];
-            $parser = $this->container->fabricate('parser.factory', $name, $fields);
+            $parser = $this->container->fabricate('parser.factory', $fields);
 
             $this->parsers->set($parser->getName(), $parser);
         }
