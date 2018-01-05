@@ -73,8 +73,7 @@ class CrawlerKernel
         $config = Yaml::parseFile($this->getParsersConfigPath());
 
         foreach ($config as $name => $settings) {
-            $fields = $settings['fields'] ?? [];
-            $parser = $this->container->fabricate('parser.factory', $fields);
+            $parser = $this->container->fabricate('parser.factory', $settings);
 
             $this->parsers->set($parser->getName(), $parser);
         }
