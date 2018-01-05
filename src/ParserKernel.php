@@ -6,6 +6,7 @@ use Ig0rbm\HandyBag\HandyBag;
 use Ig0rbm\HandyBox\HandyBoxContainer;
 use Ig0rbm\Prettycurl\Request\Request;
 use Ig0rbm\Webcrawler\BaseParsingUnit;
+use Ig0rbm\Webcrawler\ParserBuilder;
 use Ig0rbm\Webcrawler\Exception\PropertyNotDefinedException;
 
 /**
@@ -51,15 +52,28 @@ class ParserKernel
      * @param HandyBoxContainer $container
      * @param array $fields
      */
-    public function __construct(HandyBoxContainer $container, array $fields)
+    public function __construct(HandyBoxContainer $container, ParserBuilder $builder)
     {
         $this->container = $container;
 
-        $this->domain = $fields['domain'] ?? null;
-        $this->name = $fields['name'] ?? null;
-        $this->setStatus();
-
+        $this->domain = $builder->getDomain();
+        $this->name = $builder->getName();
         $this->request = $this->container->fabricate('prettycurl', $this->domain);
+
+        $kernel = $this;
+        $builder->chainWalk(function($key, $unitName) use ($container, $builder, $kernel){
+            $classname = sprintf(
+                '%s\%s\%s',
+                $builder->getRootNamespace(),
+                $builder->getName(),
+                $unitName
+            );
+
+            $unit = $container->fabricate('unit.factory', $classname);
+            $kernel->pushUnitToChain($unit);
+        });
+
+        $this->setStatus();
     }
 
     /**
@@ -110,11 +124,12 @@ class ParserKernel
 
     /**
      * @param ParsingUnitInterface $parsingUnit
-     * @return ParserKernel
+     * 
+     * @return $this
      */
-    public function pushUnit(BaseParsingUnit $parsingUnit)
+    public function pushUnitToChain(BaseParsingUnit $unit)
     {
-        $this->parsingChain[] = $parsingUnit;
+        $this->parsingChain[] = $unit;
 
         return $this;
     }
