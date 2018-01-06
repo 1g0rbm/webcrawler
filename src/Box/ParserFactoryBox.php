@@ -16,17 +16,7 @@ class ParserFactoryBox implements HandyBoxInterface
     public function register(HandyBoxContainer $container)
     {
         $container->factory('parser.factory', function (array $fields) use ($container) {
-            $builder = new ParserBuilder();
-
-            $builder
-                ->setDomain($fields['domain'] ?? '')
-                ->setName($fields['name'] ?? '')
-                ->setRootNamespace($fields['namespace'] ?? '')
-                ->setChain($fields['chain'] ?? []);
-
-            $parser = new ParserKernel($container, $builder);
-
-            return $parser;
+            return new ParserKernel($container, new ParserBuilder($fields));
         });
     }
 }
