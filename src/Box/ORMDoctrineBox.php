@@ -10,6 +10,7 @@ use Ig0rbm\HandyBox\HandyBoxContainer;
 /**
  * This box configurate doctrine orm
  *
+ * @package Ig0rbm\Webcrawler
  * @author 1g0rbm <m1g0rb89@gmail.com>
  */
 class ORMDoctrineBox implements HandyBoxInterface
