@@ -61,15 +61,21 @@ class ParserKernel
         $this->request = $this->container->fabricate('prettycurl', $this->domain);
 
         $kernel = $this;
-        $builder->chainWalk(function($key, $unitName) use ($container, $builder, $kernel){
+        $builder->chainWalk(function($key, $chainUnit) use ($container, $builder, $kernel){
             $classname = sprintf(
                 '%s\%s\%s',
                 $builder->getRootNamespace(),
                 $builder->getName(),
-                $unitName
+                $chainUnit['class']
             );
 
-            $unit = $container->fabricate('unit.factory', $classname);
+            $unit = $container->fabricate(
+                'unit.factory',
+                $classname,
+                $chainUnit['uri'],
+                $this->request
+            );
+
             $kernel->pushUnitToChain($unit);
         });
 

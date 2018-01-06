@@ -2,12 +2,27 @@
 
 namespace Ig0rbm\Webcrawler;
 
+/**
+ * @package Ig0rbm\Webcrawler
+ * @author 1g0rbm <m1g0rb89@gmail.com>
+ */
 class ParserBuilder
 {
     private $domain;
     private $name;
     private $rootNamespace;
-    private $chain = [];
+    private $chain;
+
+    /**
+     * @param array $fields
+     */
+    public function __construct(array $fields)
+    {
+        $this->domain = $fields['domain'] ?? null;
+        $this->name = $fields['name'] ?? null;
+        $this->rootNamespace = $fields['namespace'] ?? null;
+        $this->chain = $fields['chain'] ?? [];
+    }
 
     /**
      * @param array $chain

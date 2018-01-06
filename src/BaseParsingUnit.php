@@ -1,8 +1,9 @@
 <?php
 
-use Ig0rbm\Prettycurl\Request\Request;
-
 namespace Ig0rbm\Webcrawler;
+
+use Ig0rbm\HandyBox\HandyBoxContainer;
+use Ig0rbm\Prettycurl\Request\Request;
 
 /**
  * @package Ig0rbm\Webcrawler
@@ -16,12 +17,25 @@ abstract class BaseParsingUnit
     private $request;
 
     /**
-     * @param Request $request
-     * @return void
+     * @var HandyBoxContainer
      */
-    public function init(Request $request)
+    private $container;
+
+    /**
+     * @var string
+     */
+    private $uri;
+
+    /**
+     * @param HandyBoxContainer $container
+     * @param Request $request
+     * @param string $uri
+     */
+    public function __construct(HandyBoxContainer $container, Request $request, string $uri)
     {
+        $this->container = $container;
         $this->request = $request;
+        $this->uri = $uri;
     }
 
     /**
