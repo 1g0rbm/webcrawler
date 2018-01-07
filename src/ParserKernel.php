@@ -143,7 +143,7 @@ class ParserKernel
     public function run()
     {
         foreach($this->parsingChain as $key => $unit) {
-
+            $unit->run();
         }
     }
 

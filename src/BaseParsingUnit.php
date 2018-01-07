@@ -4,6 +4,7 @@ namespace Ig0rbm\Webcrawler;
 
 use Ig0rbm\HandyBox\HandyBoxContainer;
 use Ig0rbm\Prettycurl\Request\Request;
+use Ig0rbm\Prettycurl\Response\Response;
 
 /**
  * @package Ig0rbm\Webcrawler
@@ -14,17 +15,22 @@ abstract class BaseParsingUnit
     /**
      * @var Request
      */
-    private $request;
+    protected $request;
+
+    /**
+     * @var Response
+     */
+    protected $response;
 
     /**
      * @var HandyBoxContainer
      */
-    private $container;
+    protected $container;
 
     /**
      * @var string
      */
-    private $uri;
+    protected $uri;
 
     /**
      * @param HandyBoxContainer $container
@@ -38,15 +44,22 @@ abstract class BaseParsingUnit
         $this->uri = $uri;
     }
 
+    public function run()
+    {
+        $this->requestSettings();
+        $this->response = $this->request->send($this->uri);
+        $this->responseHandle();
+    }
+
     /**
      * @return array
      */
-    abstract public function preferences();
+    abstract public function requestSettings();
 
     /**
      * @return void
      */
-    abstract public function execute();
+    abstract public function responseHandle();
 
     /**
      * @return void
