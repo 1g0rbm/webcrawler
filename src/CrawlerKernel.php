@@ -123,7 +123,11 @@ class CrawlerKernel
     {
         $this->container = new HandyBoxContainer();
 
-        $this->container->storage()->set('path_to_entities', sprintf('%s/Entity', $this->projectDir));
+        $this->container->storage()->set('path_to.project_dir', $this->getProjectDir());
+        $this->container->storage()->set('path_to.user_parsers', $this->getUserParsersDir());
+        $this->container->storage()->set('path_to.var_dir', sprintf('%s/var', $this->getProjectDir()));
+        $this->container->storage()->set('path_to.entities', sprintf('%s/Entity', $this->getProjectDir()));
+
         $this->container->register(new ORMDoctrineBox());
         $this->container->register(new DoctrineConsoleRunnerBox());
         $this->container->register(new PrettyCurlBox());
