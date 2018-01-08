@@ -78,7 +78,7 @@ abstract class BaseParsingUnit
     protected function getPathForTemporaryFiles()
     {
         return sprintf(
-            '%s/%s/%s',
+            '%s/%s',
             $this->container->storage()->get('path_to.var_dir'),
             $this->container->storage()->get('parser_name')
         );
