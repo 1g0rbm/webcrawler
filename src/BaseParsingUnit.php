@@ -33,6 +33,11 @@ abstract class BaseParsingUnit
     protected $uri;
 
     /**
+     * @var array
+     */
+    protected $data = [];
+
+    /**
      * @param HandyBoxContainer $container
      * @param Request $request
      * @param string $uri
@@ -49,6 +54,7 @@ abstract class BaseParsingUnit
         $this->requestSettings();
         $this->response = $this->request->send($this->uri);
         $this->responseHandle();
+        $this->save();
     }
 
     /**
@@ -65,4 +71,16 @@ abstract class BaseParsingUnit
      * @return void
      */
     abstract public function save();
+
+    /*
+     * @return string
+     */
+    protected function getPathForTemporaryFiles()
+    {
+        return sprintf(
+            '%s/%s/%s',
+            $this->container->storage()->get('path_to.var_dir'),
+            $this->container->storage()->get('parser_name')
+        );
+    }
 }
