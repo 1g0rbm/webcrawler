@@ -12,6 +12,7 @@ use Ig0rbm\Webcrawler\Box\DomCrawlerBox;
 use Ig0rbm\Webcrawler\Box\EventManagerBox;
 use Ig0rbm\Webcrawler\Box\ParserFactoryBox;
 use Ig0rbm\Webcrawler\Box\UnitFactoryBox;
+use Ig0rbm\Webcrawler\Box\PredisServiceBox;
 use Ig0rbm\Webcrawler\Console\ParsersInfo;
 use Ig0rbm\Webcrawler\Console\ParsingRun;
 use Symfony\Component\Console\Application as Console;
@@ -136,6 +137,7 @@ class CrawlerKernel
         $this->container->register(new EventManagerBox());
         $this->container->register(new ParserFactoryBox());
         $this->container->register(new UnitFactoryBox());
+        $this->container->register(new PredisServiceBox());
     }
 
     /**
