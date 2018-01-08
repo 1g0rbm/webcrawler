@@ -69,6 +69,8 @@ class ParserKernel
                 $chainUnit['class']
             );
 
+            $container->storage()->set('parser_name', $builder->getName());
+
             $unit = $container->fabricate(
                 'unit.factory',
                 $classname,
