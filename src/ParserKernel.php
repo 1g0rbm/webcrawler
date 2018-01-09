@@ -8,6 +8,7 @@ use Ig0rbm\Prettycurl\Request\Request;
 use Ig0rbm\Webcrawler\BaseParsingUnit;
 use Ig0rbm\Webcrawler\ParserBuilder;
 use Ig0rbm\Webcrawler\Exception\PropertyNotDefinedException;
+use Ig0rbm\Webcrawler\Exception\NotFoundException;
 
 /**
  * @package Ig0rbm\Webcrawler
@@ -62,6 +63,16 @@ class ParserKernel
 
         $kernel = $this;
         $builder->chainWalk(function($key, $chainUnit) use ($container, $builder, $kernel){
+
+            //TODO need validator for parser.yml
+            if (false === isset($chainUnit['class'])) {
+                throw new NotFoundException('Parameter "class" not found in parser "%s" config.', $builder->getName());
+            }
+
+            if (false === isset($chainUnit['uri'])) {
+                throw new NotFoundException('Parameter "uri" not found in parser "%s" config.', $builder->getName());
+            }
+
             $classname = sprintf(
                 '%s\%s\%s',
                 $builder->getRootNamespace(),
