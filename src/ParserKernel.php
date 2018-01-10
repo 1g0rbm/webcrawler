@@ -62,8 +62,7 @@ class ParserKernel
         $this->request = $this->container->fabricate('prettycurl', $this->domain);
 
         $kernel = $this;
-        $builder->chainWalk(function($key, $chainUnit) use ($container, $builder, $kernel){
-
+        $builder->chainWalk(function($key, $chainUnit) use ($container, $builder, $kernel) {
             //TODO need validator for parser.yml
             if (false === isset($chainUnit['class'])) {
                 throw new NotFoundException('Parameter "class" not found in parser "%s" config.', $builder->getName());
