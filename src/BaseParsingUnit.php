@@ -39,14 +39,12 @@ abstract class BaseParsingUnit
 
     /**
      * @param HandyBoxContainer $container
-     * @param Request $request
-     * @param string $uri
      */
-    public function __construct(HandyBoxContainer $container, Request $request, string $uri)
+    public function __construct(HandyBoxContainer $container)
     {
         $this->container = $container;
-        $this->request = $request;
-        $this->uri = $uri;
+        $this->request = $container->storage()->get('parser_request');
+        $this->uri = $container->storage()->get('parser_uri');
     }
 
     public function run()

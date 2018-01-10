@@ -68,10 +68,6 @@ class ParserKernel
                 throw new NotFoundException('Parameter "class" not found in parser "%s" config.', $builder->getName());
             }
 
-            if (false === isset($chainUnit['uri'])) {
-                throw new NotFoundException('Parameter "uri" not found in parser "%s" config.', $builder->getName());
-            }
-
             $classname = sprintf(
                 '%s\%s\%s',
                 $builder->getRootNamespace(),
@@ -80,13 +76,10 @@ class ParserKernel
             );
 
             $container->storage()->set('parser_name', $builder->getName());
+            $container->storage()->set('parser_uri', $chainUnit['uri'] ?? null);
+            $container->storage()->set('parser_request', $this->request);
 
-            $unit = $container->fabricate(
-                'unit.factory',
-                $classname,
-                $chainUnit['uri'],
-                $this->request
-            );
+            $unit = $container->fabricate('unit.factory', $classname);
 
             $kernel->pushUnitToChain($unit);
         });
