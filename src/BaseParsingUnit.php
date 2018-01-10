@@ -5,6 +5,8 @@ namespace Ig0rbm\Webcrawler;
 use Ig0rbm\HandyBox\HandyBoxContainer;
 use Ig0rbm\Prettycurl\Request\Request;
 use Ig0rbm\Prettycurl\Response\Response;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
 /**
  * @package Ig0rbm\Webcrawler
@@ -28,11 +30,6 @@ abstract class BaseParsingUnit
     protected $container;
 
     /**
-     * @var string
-     */
-    protected $uri;
-
-    /**
      * @var array
      */
     protected $data = [];
@@ -41,18 +38,15 @@ abstract class BaseParsingUnit
      * @param HandyBoxContainer $container
      */
     public function __construct(HandyBoxContainer $container)
-    {
+    {   
         $this->container = $container;
         $this->request = $container->storage()->get('parser_request');
-        $this->uri = $container->storage()->get('parser_uri');
     }
 
     public function run()
     {
         $this->requestSettings();
-        $this->response = $this->request->send($this->uri);
-        $this->responseHandle();
-        $this->save();
+        $this->process();
     }
 
     /**
@@ -63,12 +57,32 @@ abstract class BaseParsingUnit
     /**
      * @return void
      */
-    abstract public function responseHandle();
+    abstract public function process();
 
     /**
-     * @return void
+     * @param string $uri
+     * 
+     * @return string
      */
-    abstract public function save();
+    protected function makeRequest(string $uri = null)
+    {
+        $uri = $uri ?: $this->container->storage()->get('parser_uri');
+
+        $response = $this->request->send($uri);
+
+        $fs = new Filesystem();
+
+        if (false === $fs->exists($this->getPathForTemporaryFiles())) {
+            $fs->mkdir($this->getPathForTemporaryFiles());
+        }
+
+        $fs->dumpFile(
+            $this->getPathForTemporaryFiles() . sprintf('/%s.html', md5($uri)),
+            $response->getBody()
+        );
+
+        return $response->getBody();
+    }
 
     /*
      * @return string
