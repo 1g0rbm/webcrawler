@@ -75,9 +75,9 @@ class ParserKernel
                 $chainUnit['class']
             );
 
-            $container->storage()->set('parser_name', $builder->getName());
-            $container->storage()->set('parser_uri', $chainUnit['uri'] ?? null);
-            $container->storage()->set('parser_request', $this->request);
+            $container->storage()->set('parser.name', $builder->getName());
+            $container->storage()->set('parser.request', $this->request);
+            $container->storage()->set(strtolower($chainUnit['class']) . '.uri', $chainUnit['uri'] ?? null);
 
             $unit = $container->fabricate('unit.factory', $classname);
 
@@ -148,7 +148,9 @@ class ParserKernel
     public function run()
     {
         foreach($this->parsingChain as $key => $unit) {
-            $unit->run();
+            if ($unit->getStatus() === ParserKernel::READY) {
+                $unit->run();
+            }
         }
     }
 

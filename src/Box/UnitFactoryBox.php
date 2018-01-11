@@ -18,7 +18,12 @@ class UnitFactoryBox implements HandyBoxInterface
                 throw new \InvalidArgumentException(sprintf('Parsing unit not found by class name "%s"', $classname));
             }
 
-            return new $classname($container);
+            $predis = $container->get('predis');
+            $stepName = strtolower(substr(strrchr($classname, "\\"), 1));
+
+            $status = $predis->get($stepName . '.status');
+
+            return new $classname($container, $status);
         });
     }
 }

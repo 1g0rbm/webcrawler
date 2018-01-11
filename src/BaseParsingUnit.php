@@ -2,6 +2,7 @@
 
 namespace Ig0rbm\Webcrawler;
 
+use Ig0rbm\Webcrawler\ParserKernel;
 use Ig0rbm\HandyBox\HandyBoxContainer;
 use Ig0rbm\Prettycurl\Request\Request;
 use Ig0rbm\Prettycurl\Response\Response;
@@ -30,6 +31,11 @@ abstract class BaseParsingUnit
     protected $container;
 
     /**
+     * @var int
+     */
+    protected $status;
+
+    /**
      * @var array
      */
     protected $data = [];
@@ -37,16 +43,25 @@ abstract class BaseParsingUnit
     /**
      * @param HandyBoxContainer $container
      */
-    public function __construct(HandyBoxContainer $container)
+    public function __construct(HandyBoxContainer $container, $status = null)
     {   
         $this->container = $container;
-        $this->request = $container->storage()->get('parser_request');
+        $this->request = $container->storage()->get('parser.request');
+        $this->status = $status ?: ParserKernel::READY;
     }
 
     public function run()
     {
         $this->requestSettings();
         $this->process();
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 
     /**
@@ -60,13 +75,23 @@ abstract class BaseParsingUnit
     abstract public function process();
 
     /**
+     * @return string
+     */
+    protected function getStepName()
+    {
+        $r = new \ReflectionClass($this);
+
+        return strtolower($r->getShortName());
+    }
+
+    /**
      * @param string $uri
      * 
      * @return string
      */
     protected function makeRequest(string $uri = null)
     {
-        $uri = $uri ?: $this->container->storage()->get('parser_uri');
+        $uri = $uri ?: $this->container->storage()->get($this->getStepName() . '.uri');
 
         $response = $this->request->send($uri);
 

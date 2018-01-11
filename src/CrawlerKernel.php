@@ -131,13 +131,13 @@ class CrawlerKernel
 
         $this->container->register(new ORMDoctrineBox());
         $this->container->register(new DoctrineConsoleRunnerBox());
+        $this->container->register(new PredisServiceBox());
         $this->container->register(new PrettyCurlBox());
         $this->container->register(new DomCrawlerBox());
         $this->container->register(new HandyBagBox());
         $this->container->register(new EventManagerBox());
         $this->container->register(new ParserFactoryBox());
         $this->container->register(new UnitFactoryBox());
-        $this->container->register(new PredisServiceBox());
     }
 
     /**
