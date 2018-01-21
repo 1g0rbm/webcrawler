@@ -5,6 +5,7 @@ namespace Ig0rbm\Webcrawler;
 use Ig0rbm\HandyBox\HandyBoxContainer;
 use Ig0rbm\HandyBag\HandyBag;
 use Ig0rbm\Webcrawler\Box\ORMDoctrineBox;
+use Ig0rbm\Webcrawler\Box\DBALDoctrineBox;
 use Ig0rbm\Webcrawler\Box\HandyBagBox;
 use Ig0rbm\Webcrawler\Box\DoctrineConsoleRunnerBox;
 use Ig0rbm\Webcrawler\Box\PrettyCurlBox;
@@ -130,14 +131,15 @@ class CrawlerKernel
         $this->container->storage()->set('path_to.entities', sprintf('%s/Entity', $this->getProjectDir()));
 
         $this->container->register(new ORMDoctrineBox());
+        $this->container->register(new DBALDoctrineBox());
         $this->container->register(new DoctrineConsoleRunnerBox());
+        $this->container->register(new PredisServiceBox());
         $this->container->register(new PrettyCurlBox());
         $this->container->register(new DomCrawlerBox());
         $this->container->register(new HandyBagBox());
         $this->container->register(new EventManagerBox());
         $this->container->register(new ParserFactoryBox());
         $this->container->register(new UnitFactoryBox());
-        $this->container->register(new PredisServiceBox());
     }
 
     /**

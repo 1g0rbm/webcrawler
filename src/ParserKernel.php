@@ -62,15 +62,10 @@ class ParserKernel
         $this->request = $this->container->fabricate('prettycurl', $this->domain);
 
         $kernel = $this;
-        $builder->chainWalk(function($key, $chainUnit) use ($container, $builder, $kernel){
-
+        $builder->chainWalk(function($key, $chainUnit) use ($container, $builder, $kernel) {
             //TODO need validator for parser.yml
             if (false === isset($chainUnit['class'])) {
                 throw new NotFoundException('Parameter "class" not found in parser "%s" config.', $builder->getName());
-            }
-
-            if (false === isset($chainUnit['uri'])) {
-                throw new NotFoundException('Parameter "uri" not found in parser "%s" config.', $builder->getName());
             }
 
             $classname = sprintf(
@@ -80,14 +75,11 @@ class ParserKernel
                 $chainUnit['class']
             );
 
-            $container->storage()->set('parser_name', $builder->getName());
+            $container->storage()->set('parser.name', $builder->getName());
+            $container->storage()->set('parser.request', $this->request);
+            $container->storage()->set(strtolower($chainUnit['class']) . '.uri', $chainUnit['uri'] ?? null);
 
-            $unit = $container->fabricate(
-                'unit.factory',
-                $classname,
-                $chainUnit['uri'],
-                $this->request
-            );
+            $unit = $container->fabricate('unit.factory', $classname);
 
             $kernel->pushUnitToChain($unit);
         });
@@ -156,7 +148,9 @@ class ParserKernel
     public function run()
     {
         foreach($this->parsingChain as $key => $unit) {
-            $unit->run();
+            if ($unit->getStatus() === ParserKernel::READY) {
+                $unit->run();
+            }
         }
     }
 
