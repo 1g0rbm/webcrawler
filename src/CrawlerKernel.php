@@ -16,6 +16,7 @@ use Ig0rbm\Webcrawler\Box\UnitFactoryBox;
 use Ig0rbm\Webcrawler\Box\PredisServiceBox;
 use Ig0rbm\Webcrawler\Console\ParsersInfo;
 use Ig0rbm\Webcrawler\Console\ParsingRun;
+use Ig0rbm\Webcrawler\Console\About;
 use Symfony\Component\Console\Application as Console;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\Yaml\Yaml;
@@ -112,6 +113,7 @@ class CrawlerKernel
     {
         $this->console = new Console();
 
+        $this->console->add(new About($this->parsers));
         $this->console->add(new ParsersInfo($this->parsers));
         $this->console->add(new ParsingRun($this->parsers));
     }

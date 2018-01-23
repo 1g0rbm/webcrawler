@@ -18,8 +18,8 @@ class ParsersInfo extends BaseParserConsole
     {
         $this
             ->setName('parser:info')
-            ->setDescription('Show info about all registered parsers.')
-            ->setHelp('This command allows you to find out information about all regisered parsers.')
+            ->setDescription('Show info about all registered parsers')
+            ->setHelp('This command allows you to find out information about all regisered parsers')
             ->addArgument('parsername', InputArgument::OPTIONAL, 'Name of the parser');
     }
 

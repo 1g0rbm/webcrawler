@@ -21,7 +21,7 @@ class ParsingRun extends BaseParserConsole
     {
         $this
             ->setName('parser:run')
-            ->setDescription('Start the parsing process.')
+            ->setDescription('Start the parsing process')
             ->setHelp('This command starts the parsing process')
             ->addArgument('parsername', InputArgument::REQUIRED, 'Name of the parser');
     }
