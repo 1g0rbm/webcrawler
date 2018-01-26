@@ -5,6 +5,7 @@ namespace Ig0rbm\Webcrawler\Console;
 use Ig0rbm\HandyBag\HandyBag;
 use Ig0rbm\Webcrawler\Exception\NotFoundException;
 use Symfony\Component\Console\Command\Command;
+use Ig0rbm\Webcrawler\ParserKernel;
 
 /**
  * @package Ig0rbm\Webcrawler
@@ -27,7 +28,11 @@ class BaseParserConsole extends Command
      */
     protected $stdOut = [];
 
-    public function __construct(HandyBag $parsers)
+    /**
+     * BaseParserConsole constructor.
+     * @param HandyBag|null $parsers
+     */
+    public function __construct(HandyBag $parsers = null)
     {
         $this->parsers = $parsers;
 
@@ -50,8 +55,9 @@ class BaseParserConsole extends Command
 
     /**
      * @param string $name
-     * 
-     * @return $this;
+     *
+     * @return $this
+     * @throws NotFoundException
      */
     protected function setCurrentParserByName(string $name)
     {
@@ -65,8 +71,10 @@ class BaseParserConsole extends Command
     }
 
     /**
-     * @param string|array $stdOut
+     * @param $stdOut
+     *
      * @return $this
+     * @throws \InvalidArgumentException
      */
     protected function pushToStdOut($stdOut)
     {
@@ -76,7 +84,7 @@ class BaseParserConsole extends Command
             $this->stdOut[] = $stdOut;
         } else {
             $message = 'Method pushToStdOut only accepted string or array. Input was ' . $stdOut . '.';
-            throw new InvalidArgumentException($message);
+            throw new \InvalidArgumentException($message);
         }
 
         return $this;
