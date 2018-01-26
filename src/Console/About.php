@@ -2,11 +2,16 @@
 
 namespace Ig0rbm\Webcrawler\Console;
 
+use Ig0rbm\Webcrawler\CrawlerKernel;
 use Ig0rbm\Webcrawler\ParserKernel;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\OutputArgument;
+use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Console\Helper\TableSeparator;
+use Predis\Connection\ConnectionException;
 
 /**
  * @package Ig0rbm\Webcrawler
@@ -24,7 +29,19 @@ class About extends BaseParserConsole
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln($this->stdOut);
+        $io = new SymfonyStyle($input, $output);
+
+        $rows = [
+            ['<info>Webcrawler</info>'],
+            new TableSeparator(),
+            ['Version', CrawlerKernel::VERSION],
+            new TableSeparator(),
+            ['<info>Envinronment</info>'],
+            new TableSeparator(),
+            ['APP_ENV', getenv('ENV')]
+        ];
+
+        $io->table([], $rows);
     }
 
 }

@@ -17,6 +17,7 @@ use Ig0rbm\Webcrawler\Box\PredisServiceBox;
 use Ig0rbm\Webcrawler\Console\ParsersInfo;
 use Ig0rbm\Webcrawler\Console\ParsingRun;
 use Ig0rbm\Webcrawler\Console\About;
+use Ig0rbm\Webcrawler\Exception\BadBoxException;
 use Symfony\Component\Console\Application as Console;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\Yaml\Yaml;
@@ -27,6 +28,8 @@ use Symfony\Component\Yaml\Yaml;
  */
 class CrawlerKernel
 {
+    const VERSION = '0.0.1';
+
     /**
      * @var Console
      */
@@ -44,7 +47,7 @@ class CrawlerKernel
 
     /**
      * The absolute path to project directory
-     * 
+     *
      * @var string
      */
     protected $projectDir;
@@ -55,6 +58,13 @@ class CrawlerKernel
      * @var string
      */
     protected $parsersDir;
+
+    /**
+     * The current environment
+     *
+     * @var string
+     */
+    protected $environment;
 
     /**
      * The absolute path to directory with config for users parsers
@@ -94,9 +104,7 @@ class CrawlerKernel
     }
 
     /**
-     * Run application
-     *
-     * @return void
+     * @throws \Exception
      */
     public function runConsole()
     {
@@ -113,7 +121,7 @@ class CrawlerKernel
     {
         $this->console = new Console();
 
-        $this->console->add(new About($this->parsers));
+        $this->console->add(new About());
         $this->console->add(new ParsersInfo($this->parsers));
         $this->console->add(new ParsingRun($this->parsers));
     }
