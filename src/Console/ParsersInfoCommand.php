@@ -12,7 +12,7 @@ use Symfony\Component\Console\Output\OutputArgument;
  * @package Ig0rbm\Webcrawler
  * @author 1g0rbm <m1g0rb89@gmail.com>
  */
-class ParsersInfo extends BaseParserConsole
+class ParsersInfoCommand extends BaseParserConsole
 {
     protected function configure()
     {

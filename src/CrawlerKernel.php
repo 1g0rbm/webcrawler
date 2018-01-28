@@ -14,9 +14,9 @@ use Ig0rbm\Webcrawler\Box\EventManagerBox;
 use Ig0rbm\Webcrawler\Box\ParserFactoryBox;
 use Ig0rbm\Webcrawler\Box\UnitFactoryBox;
 use Ig0rbm\Webcrawler\Box\PredisServiceBox;
-use Ig0rbm\Webcrawler\Console\ParsersInfo;
-use Ig0rbm\Webcrawler\Console\ParsingRun;
-use Ig0rbm\Webcrawler\Console\About;
+use Ig0rbm\Webcrawler\Console\ParsersInfoCommand;
+use Ig0rbm\Webcrawler\Console\ParsingRunCommand;
+use Ig0rbm\Webcrawler\Console\AboutCommand;
 use Ig0rbm\Webcrawler\Exception\BadBoxException;
 use Symfony\Component\Console\Application as Console;
 use Symfony\Component\Dotenv\Dotenv;
@@ -121,9 +121,9 @@ class CrawlerKernel
     {
         $this->console = new Console();
 
-        $this->console->add(new About());
-        $this->console->add(new ParsersInfo($this->parsers));
-        $this->console->add(new ParsingRun($this->parsers));
+        $this->console->add(new AboutCommand());
+        $this->console->add(new ParsersInfoCommand($this->parsers));
+        $this->console->add(new ParsingRunCommand($this->parsers));
     }
 
     /**

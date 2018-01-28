@@ -17,7 +17,7 @@ use Predis\Connection\ConnectionException;
  * @package Ig0rbm\Webcrawler
  * @author 1g0rbm <m1g0rb89@gmail.com>
  */
-class About extends BaseParserConsole
+class AboutCommand extends BaseParserConsole
 {
     protected function configure()
     {
