@@ -29,7 +29,7 @@ class PredisServiceBox implements HandyBoxInterface
                 $container->storage()->set('redis.connection_status', true);
             } catch (\Predis\Connection\ConnectionException $e) {
                 $container->storage()->set('redis.connection_status', false);
-                throw new BadBoxException(__CLASS__);
+                throw new BadBoxException(__CLASS__, 'Connect to predis not found');
             }
 
             return $predis;
