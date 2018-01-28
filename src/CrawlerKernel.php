@@ -17,7 +17,7 @@ use Ig0rbm\Webcrawler\Box\PredisServiceBox;
 use Ig0rbm\Webcrawler\Console\ParsersInfoCommand;
 use Ig0rbm\Webcrawler\Console\ParsingRunCommand;
 use Ig0rbm\Webcrawler\Console\AboutCommand;
-use Ig0rbm\Webcrawler\Exception\BadBoxException;
+use Ig0rbm\Webcrawler\Console\PredisCommand;
 use Symfony\Component\Console\Application as Console;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\Yaml\Yaml;
@@ -122,6 +122,9 @@ class CrawlerKernel
         $this->console = new Console();
 
         $this->console->add(new AboutCommand());
+        $this->console->add(new PredisCommand());
+
+        // command for parsers
         $this->console->add(new ParsersInfoCommand($this->parsers));
         $this->console->add(new ParsingRunCommand($this->parsers));
     }
