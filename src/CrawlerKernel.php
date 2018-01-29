@@ -123,7 +123,7 @@ class CrawlerKernel
         $this->console = new Console();
 
         $this->console->add(new AboutCommand());
-        $this->console->add(new PredisCommand());
+        $this->console->add(new PredisCommand($this->container->get('parser.predis')));
 
         // command for parsers
         $this->console->add(new ParsersInfoCommand($this->parsers));

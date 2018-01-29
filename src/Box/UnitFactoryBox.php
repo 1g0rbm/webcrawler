@@ -23,10 +23,10 @@ class UnitFactoryBox implements HandyBoxInterface
                 throw new BadBoxException(__CLASS__);
             }
 
-            $predis = $container->get('predis');
+            $pPredis = $container->get('parser.predis');
             $stepName = strtolower(substr(strrchr($classname, "\\"), 1));
 
-            $status = $predis->get($stepName . '.status');
+            $status = $pPredis->get($stepName . '.status');
 
             return new $classname($container, $status);
         });

@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @package Ig0rbm\Webcrawler
  * @author 1g0rbm <m1g0rb89@gmail.com>
  */
-class PredisCommand extends Command
+class PredisCommand extends BaseParserConsole
 {
     protected function configure()
     {
