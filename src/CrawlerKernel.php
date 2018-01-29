@@ -123,7 +123,7 @@ class CrawlerKernel
         $this->console = new Console();
 
         $this->console->add(new AboutCommand());
-        $this->console->add(new PredisCommand($this->container->get('parser.predis')));
+        $this->console->add(new PredisCommand());
 
         // command for parsers
         $this->console->add(new ParsersInfoCommand($this->parsers));
@@ -147,8 +147,8 @@ class CrawlerKernel
         $this->container->register(new ORMDoctrineBox());
         $this->container->register(new DBALDoctrineBox());
         $this->container->register(new DoctrineConsoleRunnerBox());
-        $this->container->register(new PredisServiceBox());
         $this->container->register(new VanillaPredisServiceBox());
+        $this->container->register(new PredisServiceBox());
         $this->container->register(new PrettyCurlBox());
         $this->container->register(new DomCrawlerBox());
         $this->container->register(new HandyBagBox());
