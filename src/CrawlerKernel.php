@@ -14,6 +14,7 @@ use Ig0rbm\Webcrawler\Box\EventManagerBox;
 use Ig0rbm\Webcrawler\Box\ParserFactoryBox;
 use Ig0rbm\Webcrawler\Box\UnitFactoryBox;
 use Ig0rbm\Webcrawler\Box\PredisServiceBox;
+use Ig0rbm\Webcrawler\Box\VanillaPredisServiceBox;
 use Ig0rbm\Webcrawler\Console\ParsersInfoCommand;
 use Ig0rbm\Webcrawler\Console\ParsingRunCommand;
 use Ig0rbm\Webcrawler\Console\AboutCommand;
@@ -147,6 +148,7 @@ class CrawlerKernel
         $this->container->register(new DBALDoctrineBox());
         $this->container->register(new DoctrineConsoleRunnerBox());
         $this->container->register(new PredisServiceBox());
+        $this->container->register(new VanillaPredisServiceBox());
         $this->container->register(new PrettyCurlBox());
         $this->container->register(new DomCrawlerBox());
         $this->container->register(new HandyBagBox());
