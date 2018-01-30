@@ -4,6 +4,7 @@ namespace Ig0rbm\Webcrawler\Console;
 
 use Ig0rbm\HandyBag\HandyBag;
 use Ig0rbm\Webcrawler\Exception\NotFoundException;
+use Ig0rbm\Webcrawler\Service\PredisParserService;
 use Symfony\Component\Console\Command\Command;
 use Ig0rbm\Webcrawler\ParserKernel;
 
@@ -19,6 +20,11 @@ class BaseParserConsole extends Command
     protected $parsers;
 
     /**
+     * @var PredisParserService
+     */
+    protected $parserPredis;
+
+    /**
      * @var ParserKernel
      */
     protected $currentParser;
@@ -30,11 +36,13 @@ class BaseParserConsole extends Command
 
     /**
      * BaseParserConsole constructor.
+     * @param PredisParserService $parserPredis
      * @param HandyBag|null $parsers
      */
-    public function __construct(HandyBag $parsers = null)
+    public function __construct(PredisParserService $parserPredis, HandyBag $parsers)
     {
         $this->parsers = $parsers;
+        $this->parserPredis = $parserPredis;
 
         parent::__construct();
     }

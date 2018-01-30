@@ -122,12 +122,12 @@ class CrawlerKernel
     {
         $this->console = new Console();
 
-        $this->console->add(new AboutCommand());
-        $this->console->add(new PredisCommand());
+        $this->console->add(new AboutCommand($this->container->get('parser.predis'), $this->parsers));
+        $this->console->add(new PredisCommand($this->container->get('parser.predis'), $this->parsers));
 
         // command for parsers
-        $this->console->add(new ParsersInfoCommand($this->parsers));
-        $this->console->add(new ParsingRunCommand($this->parsers));
+        $this->console->add(new ParsersInfoCommand($this->container->get('parser.predis'), $this->parsers));
+        $this->console->add(new ParsingRunCommand($this->container->get('parser.predis'), $this->parsers));
     }
 
     /**
