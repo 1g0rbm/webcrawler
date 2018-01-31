@@ -34,11 +34,51 @@ class PredisParserService
 
     /**
      * @param string $key
+     * @param mixed $value
+     */
+    public function lpush(string $key, $value)
+    {
+        $this->predis->lpush($this->key($key), $value);
+    }
+
+    /**
+     * @param string $key
      * @return string
      */
     public function get(string $key)
     {
         return $this->predis->get($this->key($key));
+    }
+
+    /**
+     * @return array
+     */
+    public function allKeys()
+    {
+        $keys = [];
+        $keysWithPrefix = $this->predis->keys($this->key('*'));
+
+        foreach ($keysWithPrefix as $key) {
+            $keys[] = $this->getKeyWithoutPrefix($key);
+        }
+
+        return $keys;
+    }
+
+    /**
+     * @return array
+     */
+    public function all()
+    {
+        $response = [];
+        $keys = $this->allKeys();
+
+        foreach ($keys as $key) {
+
+            $response[$key] = $this->get($key);
+        }
+
+        return $response;
     }
 
     /**
@@ -48,5 +88,14 @@ class PredisParserService
     private function key(string $key)
     {
         return "{$this->prefix}_$key";
+    }
+
+    /**
+     * @param string $key
+     * @return mixed
+     */
+    private function getKeyWithoutPrefix(string $key)
+    {
+        return str_replace("{$this->prefix}_", '', $key);
     }
 }
