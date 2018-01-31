@@ -25,20 +25,22 @@ class PredisParserService
 
     /**
      * @param string $key
-     * @param mixed $value
+     * @param $value
+     * @return mixed
      */
     public function set(string $key, $value)
     {
-        $this->predis->set($this->key($key), $value);
+        return $this->predis->set($this->key($key), $value);
     }
 
     /**
      * @param string $key
-     * @param mixed $value
+     * @param $value
+     * @return int
      */
     public function lpush(string $key, $value)
     {
-        $this->predis->lpush($this->key($key), $value);
+        return $this->predis->lpush($this->key($key), $value);
     }
 
     /**
@@ -74,11 +76,42 @@ class PredisParserService
         $keys = $this->allKeys();
 
         foreach ($keys as $key) {
-
             $response[$key] = $this->get($key);
         }
 
         return $response;
+    }
+
+    /**
+     * @param string|array $key
+     * @return int
+     */
+    public function delete($key)
+    {
+
+        if (is_array($key)) {
+            foreach ($key as $k => $v) {
+                $key[$k] = $this->key($v);
+            }
+        } else {
+            $key = $this->key($key);
+        }
+
+        if (empty($key)) {
+            return 0;
+        }
+
+        return $this->predis->del($key);
+    }
+
+    /**
+     * @return int
+     */
+    public function deleteAll()
+    {
+        $keys = $this->allKeys();
+
+        return $this->delete($keys);
     }
 
     /**
