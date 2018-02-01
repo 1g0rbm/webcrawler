@@ -18,7 +18,6 @@ use Ig0rbm\Webcrawler\Box\VanillaPredisServiceBox;
 use Ig0rbm\Webcrawler\Console\ParsersInfoCommand;
 use Ig0rbm\Webcrawler\Console\ParsingRunCommand;
 use Ig0rbm\Webcrawler\Console\AboutCommand;
-use Ig0rbm\Webcrawler\Console\PredisCommand;
 use Ig0rbm\Webcrawler\Console\ParserPredisDelCommand;
 use Symfony\Component\Console\Application as Console;
 use Symfony\Component\Dotenv\Dotenv;
@@ -124,7 +123,6 @@ class CrawlerKernel
         $this->console = new Console();
 
         $this->console->add(new AboutCommand($this->container->get('parser.predis'), $this->parsers));
-        $this->console->add(new PredisCommand($this->container->get('parser.predis'), $this->parsers));
         $this->console->add(new ParserPredisDelCommand($this->container->get('parser.predis'), $this->parsers));
 
         // command for parsers
