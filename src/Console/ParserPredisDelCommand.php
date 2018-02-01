@@ -29,7 +29,11 @@ class ParserPredisDelCommand extends BaseParserConsole
             $key = $this->parserPredis->allKeys();
         }
 
-        $this->pushToStdOut("Delete keys: {$this->parserPredis->delete($key)}");
+        if (false == $this->parserPredis->exist($key)) {
+            $this->pushToStdOut('Nothing to del');
+        } else {
+            $this->pushToStdOut("Delete keys: {$this->parserPredis->delete($key)}");
+        }
 
         $output->writeln($this->stdOut);
     }

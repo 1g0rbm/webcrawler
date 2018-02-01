@@ -90,9 +90,7 @@ class PredisParserService
     {
 
         if (is_array($key)) {
-            foreach ($key as $k => $v) {
-                $key[$k] = $this->key($v);
-            }
+
         } else {
             $key = $this->key($key);
         }
@@ -115,11 +113,45 @@ class PredisParserService
     }
 
     /**
-     * @param string $key
+     * @param string|array $key
+     * @return int
+     */
+    public function exist($key)
+    {
+        if (is_array($key)) {
+            $key = $this->join($key);
+        } else {
+            $key = $this->key($key);
+        }
+
+        return $this->predis->exists($key);
+    }
+
+    /**
+     * @param array $arr
      * @return string
      */
-    private function key(string $key)
+    private function join(array $arr)
     {
+        $arr = $this->key($arr);
+
+        return implode(' ', $arr);
+    }
+
+    /**
+     * @param string|array $key
+     * @return string|array
+     */
+    private function key($key)
+    {
+        if (is_array($key)) {
+            foreach ($key as $k => $v) {
+                $key[$k] = "{$this->prefix}_$v";
+            }
+
+            return $key;
+        }
+
         return "{$this->prefix}_$key";
     }
 
