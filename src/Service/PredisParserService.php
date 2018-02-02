@@ -47,6 +47,15 @@ class PredisParserService
      * @param string $key
      * @return string
      */
+    public function rpop(string $key)
+    {
+        return $this->predis->rpop($this->key($key));
+    }
+
+    /**
+     * @param string $key
+     * @return string
+     */
     public function get(string $key)
     {
         return $this->predis->get($this->key($key));
