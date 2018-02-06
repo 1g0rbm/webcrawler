@@ -39,10 +39,12 @@ abstract class BaseParsingUnit
     protected $data = [];
 
     /**
+     * BaseParsingUnit constructor.
      * @param HandyBoxContainer $container
+     * @param int|null $status
      */
     public function __construct(HandyBoxContainer $container, $status = null)
-    {   
+    {
         $this->container = $container;
         $this->request = $container->storage()->get('parser.request');
         $this->status = $status ?: ParserKernel::READY;
@@ -63,6 +65,17 @@ abstract class BaseParsingUnit
     }
 
     /**
+     * @return string
+     * @throws \ReflectionException
+     */
+    public function getStepName()
+    {
+        $r = new \ReflectionClass($this);
+
+        return strtolower($r->getShortName());
+    }
+
+    /**
      * @return array
      */
     abstract public function requestSettings();
@@ -71,17 +84,6 @@ abstract class BaseParsingUnit
      * @return void
      */
     abstract public function process();
-
-    /**
-     * @return string
-     * @throws \ReflectionException
-     */
-    protected function getStepName()
-    {
-        $r = new \ReflectionClass($this);
-
-        return strtolower($r->getShortName());
-    }
 
     /**
      * @param string|null $uri
