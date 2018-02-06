@@ -35,7 +35,7 @@ class ParserKernel
     protected $status;
 
     /**
-     * @var HandyBox
+     * @var HandyBag
      */
     protected $container;
     
@@ -50,8 +50,10 @@ class ParserKernel
     protected $parsingChain = [];
 
     /**
+     * ParserKernel constructor.
      * @param HandyBoxContainer $container
-     * @param array $fields
+     * @param ParserBuilder $builder
+     * @throws PropertyNotDefinedException
      */
     public function __construct(HandyBoxContainer $container, ParserBuilder $builder)
     {
@@ -65,7 +67,7 @@ class ParserKernel
         $builder->chainWalk(function($key, $chainUnit) use ($container, $builder, $kernel) {
             //TODO need validator for parser.yml
             if (false === isset($chainUnit['class'])) {
-                throw new NotFoundException('Parameter "class" not found in parser "%s" config.', $builder->getName());
+                throw new NotFoundException(sprintf('Parameter "class" not found in parser "%s" config.', $builder->getName()));
             }
 
             $classname = sprintf(
@@ -96,8 +98,8 @@ class ParserKernel
     }
 
     /**
-     * @return string the name of parser
-     * @throws PropertyNotDefineException
+     * @return null|string
+     * @throws PropertyNotDefinedException
      */
     public function getName()
     {
@@ -117,12 +119,13 @@ class ParserKernel
     }
 
     /**
-     * @return string
+     * @return mixed
+     * @throws PropertyNotDefinedException
      */
     public function getStatusText()
     {
         if (null === $this->status) {
-            PropertyNotDefinedException('status', self::class);
+            throw new PropertyNotDefinedException('status', self::class);
         }
 
         return static::$statusText[$this->status];
@@ -134,8 +137,8 @@ class ParserKernel
     }
 
     /**
-     * @param ParsingUnitInterface $parsingUnit
-     * 
+     * @param BaseParsingUnit $unit
+     *
      * @return $this
      */
     public function pushUnitToChain(BaseParsingUnit $unit)
@@ -154,6 +157,9 @@ class ParserKernel
         }
     }
 
+    /**
+     * @throws PropertyNotDefinedException
+     */
     private function setStatus()
     {
         $ready = true;

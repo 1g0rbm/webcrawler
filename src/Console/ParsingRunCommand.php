@@ -3,13 +3,9 @@
 namespace Ig0rbm\Webcrawler\Console;
 
 use Ig0rbm\Webcrawler\ParserKernel;
-use Ig0rbm\HandyBag\HandyBag;
-use Ig0rbm\Webcrawler\Exception\NotFoundException;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Output\OutputArgument;
 
 /**
  * @package Ig0rbm\Webcrawler
