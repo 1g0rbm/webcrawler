@@ -2,12 +2,10 @@
 
 namespace Ig0rbm\Webcrawler;
 
-use Ig0rbm\Webcrawler\ParserKernel;
 use Ig0rbm\HandyBox\HandyBoxContainer;
 use Ig0rbm\Prettycurl\Request\Request;
 use Ig0rbm\Prettycurl\Response\Response;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
 /**
  * @package Ig0rbm\Webcrawler
@@ -76,6 +74,7 @@ abstract class BaseParsingUnit
 
     /**
      * @return string
+     * @throws \ReflectionException
      */
     protected function getStepName()
     {
@@ -85,9 +84,9 @@ abstract class BaseParsingUnit
     }
 
     /**
-     * @param string $uri
-     * 
+     * @param string|null $uri
      * @return string
+     * @throws \ReflectionException
      */
     protected function makeRequest(string $uri = null)
     {
@@ -109,9 +108,6 @@ abstract class BaseParsingUnit
         return $response->getBody();
     }
 
-    /*
-     * @return string
-     */
     protected function getPathForTemporaryFiles()
     {
         return sprintf(
