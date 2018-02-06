@@ -38,12 +38,12 @@ class ParserKernel
      * @var HandyBag
      */
     protected $container;
-    
+
     /**
      * @var Request
      */
     protected $request;
-    
+
     /**
      * @var array
      */
@@ -64,7 +64,7 @@ class ParserKernel
         $this->request = $this->container->fabricate('prettycurl', $this->domain);
 
         $kernel = $this;
-        $builder->chainWalk(function($key, $chainUnit) use ($container, $builder, $kernel) {
+        $builder->chainWalk(function ($key, $chainUnit) use ($container, $builder, $kernel) {
             //TODO need validator for parser.yml
             if (false === isset($chainUnit['class'])) {
                 throw new NotFoundException(sprintf('Parameter "class" not found in parser "%s" config.', $builder->getName()));
@@ -148,10 +148,19 @@ class ParserKernel
         return $this;
     }
 
-    public function run()
+    /**
+     * @param \Closure|null $callback
+     * @throws \ReflectionException
+     */
+    public function run(\Closure $callback = null)
     {
-        foreach($this->parsingChain as $key => $unit) {
+        foreach ($this->parsingChain as $key => $unit) {
+            /** @var $unit BaseParsingUnit */
             if ($unit->getStatus() === ParserKernel::READY) {
+                if (null !== $callback) {
+                    $callback($unit->getStepName());
+                }
+
                 $unit->run();
             }
         }

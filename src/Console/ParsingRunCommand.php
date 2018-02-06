@@ -6,6 +6,7 @@ use Ig0rbm\Webcrawler\ParserKernel;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\OutputInterface;
+use Ig0rbm\Webcrawler\ErrorHandler;
 
 /**
  * @package Ig0rbm\Webcrawler
@@ -24,16 +25,22 @@ class ParsingRunCommand extends BaseParserConsole
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $name = $input->getArgument('parsername');
+        try {
+            $name = $input->getArgument('parsername');
 
-        $this->setCurrentParserByName($name);
+            $this->setCurrentParserByName($name);
 
-        if ($this->currentParser->getStatus() !== ParserKernel::READY) {
-            //TODO make exception for it
-            throw new \Exception(sprintf('Unable start parsing process for "%s" status', $this->currentParser->getStatusText()));
+            if ($this->currentParser->getStatus() !== ParserKernel::READY) {
+                //TODO make exception for it
+                throw new \Exception(sprintf('Unable start parsing process for "%s" status', $this->currentParser->getStatusText()));
+            }
+
+            $this->currentParser->run(function ($stepName) use ($output) {
+                $output->writeln("The parsing for \"$stepName\"");
+            });
+        } catch (\Exception $e) {
+            (new ErrorHandler($e))->handle();
         }
-
-        $this->currentParser->run();
 
         $output->writeln($this->stdOut);
     }
