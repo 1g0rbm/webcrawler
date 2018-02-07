@@ -35,9 +35,24 @@ class ParsingRunCommand extends BaseParserConsole
                 throw new \Exception(sprintf('Unable start parsing process for "%s" status', $this->currentParser->getStatusText()));
             }
 
-            $this->currentParser->run(function ($stepName) use ($output) {
-                $output->writeln("The parsing for \"$stepName\"");
-            });
+            $this
+                ->currentParser
+                ->setBefore(function ($stepName) use ($output) {
+                    $output->writeln([
+                        "Start parsing for \"$stepName\"",
+                        '==============================='
+                    ]);
+                })
+                ->setAfter(function ($stepName) use ($output) {
+                    $output->writeln([
+                        "Stop parsing for \"$stepName\"",
+                        '==============================='
+                    ]);
+                })
+                ->setDuring(function (array $logs) use ($output) {
+                    $output->writeln($logs);
+                })
+                ->run();
         } catch (\Exception $e) {
             (new ErrorHandler($e))->handle();
         }

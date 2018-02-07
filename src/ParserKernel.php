@@ -50,6 +50,21 @@ class ParserKernel
     protected $parsingChain = [];
 
     /**
+     * @var \Closure
+     */
+    protected $before;
+
+    /**
+     * @var \Closure
+     */
+    protected $after;
+
+    /**
+     * @var \Closure
+     */
+    protected $during;
+
+    /**
      * ParserKernel constructor.
      * @param HandyBoxContainer $container
      * @param ParserBuilder $builder
@@ -149,21 +164,62 @@ class ParserKernel
     }
 
     /**
-     * @param \Closure|null $callback
+     * @return $this
      * @throws \ReflectionException
      */
-    public function run(\Closure $callback = null)
+    public function run()
     {
         foreach ($this->parsingChain as $key => $unit) {
             /** @var $unit BaseParsingUnit */
-            if ($unit->getStatus() === ParserKernel::READY) {
-                if (null !== $callback) {
-                    $callback($unit->getStepName());
-                }
+            if ($unit->getStatus() !== ParserKernel::READY) {
+                continue;
+            }
 
-                $unit->run();
+            if (is_callable($this->before)) {
+                call_user_func($this->before, $unit->getStepName());
+            }
+
+            $unit->run($this->during);
+
+            if (is_callable($this->after)) {
+                call_user_func($this->after, $unit->getStepName());
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @param \Closure $closure
+     * @return $this
+     */
+    public function setBefore(\Closure $closure)
+    {
+        $this->before = $closure;
+
+        return $this;
+    }
+
+    /**
+     * @param \Closure $closure
+     * @return $this
+     */
+    public function setAfter(\Closure $closure)
+    {
+        $this->after = $closure;
+
+        return $this;
+    }
+
+    /**
+     * @param \Closure $closure
+     * @return $this
+     */
+    public function setDuring(\Closure $closure)
+    {
+        $this->during = $closure;
+
+        return $this;
     }
 
     /**

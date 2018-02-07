@@ -50,10 +50,13 @@ abstract class BaseParsingUnit
         $this->status = $status ?: ParserKernel::READY;
     }
 
-    public function run()
+    /**
+     * @param \Closure $callback
+     */
+    public function run(\Closure $callback = null)
     {
         $this->requestSettings();
-        $this->process();
+        $this->process($callback);
     }
 
     /**
@@ -81,9 +84,10 @@ abstract class BaseParsingUnit
     abstract public function requestSettings();
 
     /**
-     * @return void
+     * @param \Closure $callback
+     * @return mixed
      */
-    abstract public function process();
+    abstract public function process(\Closure $callback = null);
 
     /**
      * @param string|null $uri
