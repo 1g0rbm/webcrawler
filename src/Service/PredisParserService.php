@@ -97,13 +97,16 @@ class PredisParserService
      */
     public function delete($key)
     {
-        $key = is_array($key) ? $this->join($key) : $this->key($key);
-
-        if (empty($key)) {
-            return 0;
+        $result = 0;
+        if (is_array($key)) {
+            foreach ($key as $item) {
+                $result += $this->predis->del($this->key($item));
+            }
+        } else {
+            $result = $this->predis->del($this->key($key));
         }
 
-        return $this->predis->del($key);
+        return $result;
     }
 
     /**
@@ -122,9 +125,16 @@ class PredisParserService
      */
     public function exist($key)
     {
-        $key = is_array($key) ? $this->join($key) : $this->key($key);
+        $result = 0;
+        if (is_array($key)) {
+            foreach ($key as $item) {
+                $result += $this->predis->exists($this->key($item));
+            }
+        } else {
+            $result = $this->predis->exists($this->key($key));
+        }
 
-        return $this->predis->exists($key);
+        return $result;
     }
 
     /**
