@@ -97,12 +97,7 @@ class PredisParserService
      */
     public function delete($key)
     {
-
-        if (is_array($key)) {
-
-        } else {
-            $key = $this->key($key);
-        }
+        $key = is_array($key) ? $this->join($key) : $this->key($key);
 
         if (empty($key)) {
             return 0;
@@ -127,11 +122,7 @@ class PredisParserService
      */
     public function exist($key)
     {
-        if (is_array($key)) {
-            $key = $this->join($key);
-        } else {
-            $key = $this->key($key);
-        }
+        $key = is_array($key) ? $this->join($key) : $this->key($key);
 
         return $this->predis->exists($key);
     }
