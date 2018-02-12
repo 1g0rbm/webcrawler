@@ -24,6 +24,14 @@ class PredisParserService
     }
 
     /**
+     * @param string $prefix
+     */
+    public function setPrefix(string $prefix)
+    {
+        $this->prefix = $prefix;
+    }
+
+    /**
      * @param string $key
      * @param $value
      * @return mixed
