@@ -5,6 +5,7 @@ namespace Ig0rbm\Webcrawler;
 use Ig0rbm\HandyBox\HandyBoxContainer;
 use Ig0rbm\Prettycurl\Request\Request;
 use Ig0rbm\Prettycurl\Response\Response;
+use Ig0rbm\Webcrawler\Service\PredisParserService;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
@@ -27,6 +28,11 @@ abstract class BaseParsingUnit
      * @var HandyBoxContainer
      */
     protected $container;
+
+    /**
+     * @var PredisParserService
+     */
+    protected $predis;
 
     /**
      * @var int
@@ -86,9 +92,6 @@ abstract class BaseParsingUnit
     {
         $r = new \ReflectionClass($this);
 
-        var_dump($r->getName());
-        die;
-
         return md5($r->getName());
     }
 
@@ -102,6 +105,20 @@ abstract class BaseParsingUnit
      * @return mixed
      */
     abstract public function process(\Closure $callback = null);
+
+    /**
+     * @return PredisParserService|mixed
+     * @throws \ReflectionException
+     */
+    protected function getPredis()
+    {
+        if (null === $this->predis) {
+            $this->predis = $this->container->get('parser.predis');
+            $this->predis->setPrefix($this->getStepHash());
+        }
+
+        return $this->predis;
+    }
 
     /**
      * @param string|null $uri
