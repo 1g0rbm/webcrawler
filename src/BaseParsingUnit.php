@@ -79,6 +79,20 @@ abstract class BaseParsingUnit
     }
 
     /**
+     * @return string
+     * @throws \ReflectionException
+     */
+    public function getStepHash()
+    {
+        $r = new \ReflectionClass($this);
+
+        var_dump($r->getName());
+        die;
+
+        return md5($r->getName());
+    }
+
+    /**
      * @return array
      */
     abstract public function requestSettings();
