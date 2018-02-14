@@ -17,7 +17,6 @@ class ORMDoctrineBox implements HandyBoxInterface
 {
     /**
      * @param HandyBoxContainer $container
-     * @param string $pathToEntities
      */
     public function register(HandyBoxContainer $container)
     {
