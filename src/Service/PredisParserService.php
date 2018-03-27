@@ -11,7 +11,6 @@ use Predis\Client as Predis;
 class PredisParserService
 {
     private $predis;
-    private $prefix;
 
     /**
      * PredisParserService constructor.
@@ -20,15 +19,6 @@ class PredisParserService
     public function __construct(Predis $predis)
     {
         $this->predis = $predis;
-        $this->prefix = getenv('PREDIS_PARSER_PREFIX');
-    }
-
-    /**
-     * @param string $prefix
-     */
-    public function setPrefix(string $prefix)
-    {
-        $this->prefix = $prefix;
     }
 
     /**
@@ -38,7 +28,7 @@ class PredisParserService
      */
     public function set(string $key, $value)
     {
-        return $this->predis->set($this->key($key), $value);
+        return $this->predis->set($key, $value);
     }
 
     /**
@@ -48,7 +38,7 @@ class PredisParserService
      */
     public function lpush(string $key, $value)
     {
-        return $this->predis->lpush($this->key($key), $value);
+        return $this->predis->lpush($key, $value);
     }
 
     /**
@@ -57,7 +47,7 @@ class PredisParserService
      */
     public function rpop(string $key)
     {
-        return $this->predis->rpop($this->key($key));
+        return $this->predis->rpop($key);
     }
 
     /**
@@ -66,7 +56,7 @@ class PredisParserService
      */
     public function get(string $key)
     {
-        return $this->predis->get($this->key($key));
+        return $this->predis->get($key);
     }
 
     /**
@@ -74,14 +64,7 @@ class PredisParserService
      */
     public function allKeys()
     {
-        $keys = [];
-        $keysWithPrefix = $this->predis->keys($this->key('*'));
-
-        foreach ($keysWithPrefix as $key) {
-            $keys[] = $this->getKeyWithoutPrefix($key);
-        }
-
-        return $keys;
+        return $this->predis->keys('*');
     }
 
     /**
@@ -108,10 +91,10 @@ class PredisParserService
         $result = 0;
         if (is_array($key)) {
             foreach ($key as $item) {
-                $result += $this->predis->del($this->key($item));
+                $result += $this->predis->del($item);
             }
         } else {
-            $result = $this->predis->del($this->key($key));
+            $result = $this->predis->del($key);
         }
 
         return $result;
@@ -136,49 +119,12 @@ class PredisParserService
         $result = 0;
         if (is_array($key)) {
             foreach ($key as $item) {
-                $result += $this->predis->exists($this->key($item));
+                $result += $this->predis->exists($item);
             }
         } else {
-            $result = $this->predis->exists($this->key($key));
+            $result = $this->predis->exists($key);
         }
 
         return $result;
-    }
-
-    /**
-     * @param array $arr
-     * @return string
-     */
-    private function join(array $arr)
-    {
-        $arr = $this->key($arr);
-
-        return implode(' ', $arr);
-    }
-
-    /**
-     * @param string|array $key
-     * @return string|array
-     */
-    private function key($key)
-    {
-        if (is_array($key)) {
-            foreach ($key as $k => $v) {
-                $key[$k] = "{$this->prefix}_$v";
-            }
-
-            return $key;
-        }
-
-        return "{$this->prefix}_$key";
-    }
-
-    /**
-     * @param string $key
-     * @return mixed
-     */
-    private function getKeyWithoutPrefix(string $key)
-    {
-        return str_replace("{$this->prefix}_", '', $key);
     }
 }
