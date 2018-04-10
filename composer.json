@@ -21,8 +21,7 @@
         "symfony/console": "^4.0@dev",
         "symfony/yaml": "^4.1@dev",
         "symfony/dotenv": "^4.0@dev",
-        "doctrine/orm": "*",
-        "1g0rbm/event-manager": "dev-master",
+        "doctrine/dbal": "^2.8@dev",
         "predis/predis": "^2.0@dev"
     },
     "require-dev": {
