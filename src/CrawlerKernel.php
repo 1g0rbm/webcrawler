@@ -147,7 +147,6 @@ class CrawlerKernel
         $storage->set('path_to.entities', sprintf('%s/Entity', $this->getProjectDir()));
         $storage->set('path_to.proxy_files', sprintf('%s/var/proxy', $this->getProjectDir()));
 
-        $this->container->register(new ORMDoctrineBox());
         $this->container->register(new DBALDoctrineBox());
         $this->container->register(new DoctrineConsoleRunnerBox());
         $this->container->register(new VanillaPredisServiceBox());
@@ -155,7 +154,6 @@ class CrawlerKernel
         $this->container->register(new PrettyCurlBox());
         $this->container->register(new DomCrawlerBox());
         $this->container->register(new HandyBagBox());
-        $this->container->register(new EventManagerBox());
         $this->container->register(new ParserFactoryBox());
         $this->container->register(new UnitFactoryBox());
     }
