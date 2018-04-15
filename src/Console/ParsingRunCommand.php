@@ -20,13 +20,15 @@ class ParsingRunCommand extends BaseParserConsole
             ->setName('parser:run')
             ->setDescription('Start the parsing process')
             ->setHelp('This command starts the parsing process')
-            ->addArgument('parsername', InputArgument::REQUIRED, 'Name of the parser');
+            ->addArgument('parsername', InputArgument::REQUIRED, 'Name of the parser')
+            ->addArgument('unit_num', InputArgument::OPTIONAL, 'Num of the chain unit');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         try {
             $name = $input->getArgument('parsername');
+            $number = $input->getArgument('unit_num');
 
             $this->setCurrentParserByName($name);
 
@@ -52,7 +54,7 @@ class ParsingRunCommand extends BaseParserConsole
                 ->setDuring(function (array $logs) use ($output) {
                     $output->writeln($logs);
                 })
-                ->run();
+                ->run($number);
         } catch (\Exception $e) {
             (new ErrorHandler($e))->handle();
         }

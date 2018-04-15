@@ -6,6 +6,7 @@ use Ig0rbm\HandyBag\HandyBag;
 use Ig0rbm\HandyBox\HandyBoxContainer;
 use Ig0rbm\Prettycurl\Request\Request;
 use Ig0rbm\Webcrawler\BaseParsingUnit;
+use Ig0rbm\Webcrawler\Exception\RunNotReadyParserException;
 use Ig0rbm\Webcrawler\ParserBuilder;
 use Ig0rbm\Webcrawler\Exception\PropertyNotDefinedException;
 use Ig0rbm\Webcrawler\Exception\NotFoundException;
@@ -164,25 +165,19 @@ class ParserKernel
     }
 
     /**
+     * @param int|null $stepNumber
      * @return $this
+     * @throws NotFoundException
+     * @throws RunNotReadyParserException
      * @throws \ReflectionException
      */
-    public function run()
+    public function run(int $stepNumber = null)
     {
-        foreach ($this->parsingChain as $key => $unit) {
-            /** @var $unit BaseParsingUnit */
-            if ($unit->getStatus() !== ParserKernel::READY) {
-                continue;
-            }
-
-            if (is_callable($this->before)) {
-                call_user_func($this->before, $unit->getStepName());
-            }
-
-            $unit->run($this->during);
-
-            if (is_callable($this->after)) {
-                call_user_func($this->after, $unit->getStepName());
+        if ($stepNumber) {
+            $this->runUnit($this->getUnitNumberByStepNumber($stepNumber));
+        } else {
+            foreach ($this->parsingChain as $key => $unit) {
+                $this->runUnit($key);
             }
         }
 
@@ -223,6 +218,36 @@ class ParserKernel
     }
 
     /**
+     * @param int $unitNumber
+     * @throws NotFoundException
+     * @throws RunNotReadyParserException
+     * @throws \ReflectionException
+     */
+    private function runUnit(int $unitNumber)
+    {
+        if (false === isset($this->parsingChain[$unitNumber])) {
+            throw new NotFoundException('Unit of parsing not found');
+        }
+
+        /** @var $unit BaseParsingUnit */
+        $unit = $this->parsingChain[$unitNumber];
+
+        if ($unit->getStatus() !== ParserKernel::READY) {
+            throw new RunNotReadyParserException($unit->getStepName());
+        }
+
+        if (is_callable($this->before)) {
+            call_user_func($this->before, $unit->getStepName());
+        }
+
+        $unit->run($this->during);
+
+        if (is_callable($this->after)) {
+            call_user_func($this->after, $unit->getStepName());
+        }
+    }
+
+    /**
      * @throws PropertyNotDefinedException
      */
     private function setStatus()
@@ -242,5 +267,15 @@ class ParserKernel
         }
 
         $this->status = $ready ? static::READY : static::NOT_READY;
+    }
+
+    /**
+     * @param int $unitNumber
+     * @return int
+     */
+    private function getUnitNumberByStepNumber(int $unitNumber)
+    {
+        $unitNumber--;
+        return $unitNumber;
     }
 }
