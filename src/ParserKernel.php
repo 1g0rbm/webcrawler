@@ -177,7 +177,11 @@ class ParserKernel
             $this->runUnit($this->getUnitNumberByStepNumber($stepNumber));
         } else {
             foreach ($this->parsingChain as $key => $unit) {
-                $this->runUnit($key);
+                try {
+                    $this->runUnit($key);
+                } catch (RunNotReadyParserException $e) {
+                    continue;
+                }
             }
         }
 
