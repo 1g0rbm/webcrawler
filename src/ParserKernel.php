@@ -94,7 +94,12 @@ class ParserKernel
             );
 
             $container->storage()->set('parser.name', $builder->getName());
-            $container->storage()->set('parser.request', $this->request);
+            $container->storage()->set(
+                'parser.request',
+                isset($chainUnit['domain'])
+                    ? $container->fabricate('prettycurl', $chainUnit['domain'])
+                    : $this->getRequest()
+            );
             $container->storage()->set(strtolower($chainUnit['class']) . '.uri', $chainUnit['uri'] ?? null);
 
             $unit = $container->fabricate('unit.factory', $classname);

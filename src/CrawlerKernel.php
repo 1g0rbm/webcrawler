@@ -86,6 +86,7 @@ class CrawlerKernel
     public function loadParsers()
     {
         $config = Yaml::parseFile($this->getParsersConfigPath());
+        $this->container->storage()->set('parsers.config', $config);
 
         foreach ($config as $name => $settings) {
             $parser = $this->container->fabricate('parser.factory', $settings);

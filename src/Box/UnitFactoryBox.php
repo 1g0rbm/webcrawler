@@ -16,7 +16,8 @@ class UnitFactoryBox implements HandyBoxInterface
     {
         $container->factory('unit.factory', function ($classname) use ($container) {
             if (false === class_exists($classname)) {
-                throw new \InvalidArgumentException(sprintf('Parsing unit not found by class name "%s"', $classname));
+                $message = sprintf('Parsing unit not found by class name "%s"', $classname);
+                throw new \InvalidArgumentException($message);
             }
 
             if (false === $container->storage()->get('redis.connection_status')) {
