@@ -227,6 +227,21 @@ class ParserKernel
     }
 
     /**
+     * @return array
+     * @throws \ReflectionException
+     */
+    public function getParsingUnitInfo()
+    {
+        $info = [];
+        /** @var $unit BaseParsingUnit */
+        foreach ($this->parsingChain as $unit) {
+            $info[$unit->getStepName()] = $unit->getStatus();
+        }
+
+        return $info;
+    }
+
+    /**
      * @param int $unitNumber
      * @throws NotFoundException
      * @throws RunNotReadyParserException
