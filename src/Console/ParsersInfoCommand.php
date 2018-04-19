@@ -49,7 +49,8 @@ class ParsersInfoCommand extends BaseParserConsole
 
         $this
             ->pushToStdOut(sprintf('<info>name:</info> %s', $parser->getName()))
-            ->pushToStdOut(sprintf('<info>chain length:</info> %s', $parser->getChainLength()));
+            ->pushToStdOut(sprintf('<info>chain:</info>'))
+            ->pushToStdOut(sprintf('    <info>length:</info> %s', $parser->getChainLength()));
 
         foreach ($parser->getParsingUnitInfo() as $step => $status) {
             $this->pushToStdOut(sprintf('    <info>%s:</info> %s', $step, ParserKernel::$statusText[$status]));
@@ -57,7 +58,6 @@ class ParsersInfoCommand extends BaseParserConsole
 
         $this
             ->pushToStdOut(sprintf('<info>request:</info> %s', $parser->getRequest() ? 'OK' : 'NOT'))
-            ->pushToStdOut('')
             ->pushToStdOut(sprintf('<info>status:</info> %s', $parser->getStatusText()))
             ->pushToStdOut('');
 
