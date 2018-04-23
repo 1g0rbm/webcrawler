@@ -13,6 +13,6 @@ class RunNotReadyParserException extends \Exception
      */
     public function __construct(string $name)
     {
-        parent::__construct(sprintf('Parser %s not ready to run. Check config.yml', $name));
+        parent::__construct(sprintf('Unit of parsing chain "%s" not ready to run. Check config.yml', $name));
     }
 }

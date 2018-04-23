@@ -2,6 +2,7 @@
 
 namespace Ig0rbm\Webcrawler\Console;
 
+use Ig0rbm\Webcrawler\Exception\RunNotReadyParserException;
 use Ig0rbm\Webcrawler\ParserKernel;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
@@ -55,6 +56,8 @@ class ParsingRunCommand extends BaseParserConsole
                     $output->writeln($logs);
                 })
                 ->run($number);
+        } catch (RunNotReadyParserException $e) {
+            $this->pushToStdOut('<error>' . $e->getMessage() . '</error>');
         } catch (\Exception $e) {
             (new ErrorHandler($e))->handle();
         }
