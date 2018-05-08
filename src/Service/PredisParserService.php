@@ -52,6 +52,16 @@ class PredisParserService
 
     /**
      * @param string $key
+     * @param $value
+     * @return int
+     */
+    public function rpush(string $key, $value)
+    {
+        return $this->predis->rpush($key, $value);
+    }
+
+    /**
+     * @param string $key
      * @return string
      */
     public function get(string $key)
