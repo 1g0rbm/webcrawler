@@ -4,17 +4,16 @@ namespace Ig0rbm\Webcrawler;
 
 use Ig0rbm\HandyBox\HandyBoxContainer;
 use Ig0rbm\HandyBag\HandyBag;
-use Ig0rbm\Webcrawler\Box\ORMDoctrineBox;
 use Ig0rbm\Webcrawler\Box\DBALDoctrineBox;
 use Ig0rbm\Webcrawler\Box\HandyBagBox;
 use Ig0rbm\Webcrawler\Box\DoctrineConsoleRunnerBox;
 use Ig0rbm\Webcrawler\Box\PrettyCurlBox;
 use Ig0rbm\Webcrawler\Box\DomCrawlerBox;
-use Ig0rbm\Webcrawler\Box\EventManagerBox;
 use Ig0rbm\Webcrawler\Box\ParserFactoryBox;
 use Ig0rbm\Webcrawler\Box\UnitFactoryBox;
 use Ig0rbm\Webcrawler\Box\PredisServiceBox;
 use Ig0rbm\Webcrawler\Box\VanillaPredisServiceBox;
+use Ig0rbm\Webcrawler\Box\TransliterationBox;
 use Ig0rbm\Webcrawler\Console\ParsersInfoCommand;
 use Ig0rbm\Webcrawler\Console\ParsingRunCommand;
 use Ig0rbm\Webcrawler\Console\AboutCommand;
@@ -157,6 +156,7 @@ class CrawlerKernel
         $this->container->register(new HandyBagBox());
         $this->container->register(new ParserFactoryBox());
         $this->container->register(new UnitFactoryBox());
+        $this->container->register(new TransliterationBox());
     }
 
     /**
