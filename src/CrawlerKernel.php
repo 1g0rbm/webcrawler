@@ -14,6 +14,7 @@ use Ig0rbm\Webcrawler\Box\UnitFactoryBox;
 use Ig0rbm\Webcrawler\Box\PredisServiceBox;
 use Ig0rbm\Webcrawler\Box\VanillaPredisServiceBox;
 use Ig0rbm\Webcrawler\Box\TransliterationBox;
+use Ig0rbm\Webcrawler\Box\UrlResolverBox;
 use Ig0rbm\Webcrawler\Console\ParsersInfoCommand;
 use Ig0rbm\Webcrawler\Console\ParsingRunCommand;
 use Ig0rbm\Webcrawler\Console\AboutCommand;
@@ -157,6 +158,7 @@ class CrawlerKernel
         $this->container->register(new ParserFactoryBox());
         $this->container->register(new UnitFactoryBox());
         $this->container->register(new TransliterationBox());
+        $this->container->register(new UrlResolverBox());
     }
 
     /**
