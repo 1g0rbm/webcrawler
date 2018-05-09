@@ -13,7 +13,7 @@ class TransliterationBox implements HandyBoxInterface
 {
     public function register(HandyBoxContainer $container)
     {
-        $container->service('transliteration', function (string $string) {
+        $container->storage()->set('transliteration', function ($string) {
             $converter = [
                 'а' => 'a', 'б' => 'b', 'в' => 'v',
                 'г' => 'g', 'д' => 'd', 'е' => 'e',
