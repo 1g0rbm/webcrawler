@@ -10,7 +10,7 @@ class UrlResolverBox implements HandyBoxInterface
 {
     public function register(HandyBoxContainer $container)
     {
-        $container->fabricate('url.resolver', function (string $url) {
+        $container->factory('url.resolver', function (string $url) {
             return new UrlResolver($url);
         });
     }
