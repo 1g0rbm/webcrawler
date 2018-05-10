@@ -10,6 +10,7 @@ class ParserBuilder
 {
     private $domain;
     private $name;
+    private $description;
     private $rootNamespace;
     private $chain;
 
@@ -20,13 +21,14 @@ class ParserBuilder
     {
         $this->domain = $fields['domain'] ?? null;
         $this->name = $fields['name'] ?? null;
+        $this->description = $fields['description'] ?? null;
         $this->rootNamespace = $fields['namespace'] ?? null;
         $this->chain = $fields['chain'] ?? [];
     }
 
     /**
      * @param array $chain
-     * 
+     *
      * @return $this
      */
     public function setChain(array $chain)
@@ -34,6 +36,14 @@ class ParserBuilder
         $this->chain = $chain;
 
         return $this;
+    }
+
+    /**
+     * @return mixed|null
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 
     /**
@@ -46,7 +56,7 @@ class ParserBuilder
 
     /**
      * @param string $rootNamespace
-     * 
+     *
      * @return $this
      */
     public function setRootNamespace(string $rootNamespace)
@@ -66,7 +76,7 @@ class ParserBuilder
 
     /**
      * @param string $name
-     * 
+     *
      * @return $this
      */
     public function setName(string $name)
@@ -86,7 +96,7 @@ class ParserBuilder
 
     /**
      * @param string $domain
-     * 
+     *
      * @return $this
      */
     public function setDomain(string $domain)
@@ -111,6 +121,7 @@ class ParserBuilder
     {
         return new \ArrayIterator($this->chain);
     }
+
     /**
      * @param \Closure $callback
      */

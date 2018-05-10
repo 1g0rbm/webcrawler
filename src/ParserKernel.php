@@ -32,6 +32,7 @@ class ParserKernel
     ];
 
     protected $name;
+    protected $description;
     protected $domain;
     protected $status;
 
@@ -77,6 +78,7 @@ class ParserKernel
 
         $this->domain = $builder->getDomain();
         $this->name = $builder->getName();
+        $this->description = $builder->getDescription();
         $this->request = $this->container->fabricate('prettycurl', $this->domain);
 
         $kernel = $this;
@@ -129,6 +131,19 @@ class ParserKernel
         }
 
         return $this->name;
+    }
+
+    /**
+     * @return mixed|null
+     * @throws PropertyNotDefinedException
+     */
+    public function getDescription()
+    {
+        if (null === $this->description) {
+            throw new PropertyNotDefinedException('description', self::class);
+        }
+
+        return $this->description;
     }
 
     /**

@@ -49,6 +49,7 @@ class ParsersInfoCommand extends BaseParserConsole
 
         $this
             ->pushToStdOut(sprintf('<info>name:</info> %s', $parser->getName()))
+            ->pushToStdOut(sprintf('<info>description:</info> %s', $parser->getDescription()))
             ->pushToStdOut(sprintf('<info>chain:</info>'))
             ->pushToStdOut(sprintf('    <info>length:</info> %s', $parser->getChainLength()));
 
