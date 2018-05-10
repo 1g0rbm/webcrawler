@@ -61,7 +61,10 @@ abstract class BaseParsingUnit
      */
     public function run(\Closure $callback = null)
     {
-        $this->requestSettings();
+        if (method_exists($this, 'requestSettings')) {
+            $this->requestSettings();
+        }
+
         $this->process($callback);
     }
 
@@ -94,11 +97,6 @@ abstract class BaseParsingUnit
 
         return md5($r->getName());
     }
-
-    /**
-     * @return array
-     */
-    abstract public function requestSettings();
 
     /**
      * @param \Closure $callback
